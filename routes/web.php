@@ -21,3 +21,7 @@ Route::get('login/vk/callback', 'Social\VkController@handleProviderCallback');
 Route::get('/social', function () {
     return 'success';
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

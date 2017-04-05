@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Social;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Services\SocialAccountService;
 use Socialite;
 
 class VkController extends Controller
@@ -19,11 +20,13 @@ class VkController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback(SocialAccountService $service)
     {
-        $user = \Socialite::driver('vkontakte')->user();
+        $driver = Socialite::driver('vkontakte');
+        $user = $service->createOrGetUser($driver, 'vkontakte');
 
-        // $user->token;
+        \Auth::login($user, true);
+        return redirect()->intended('/home');
     }
 
 }
