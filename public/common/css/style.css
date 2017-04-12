@@ -1,0 +1,167 @@
+h6{
+    font-size: 1.26em;
+}
+h1, h2, h3, h4, h5{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+table.__left > tbody > tr > td.__left{
+    text-align: left;
+    padding-left: 40px;
+}
+table.__left > thead> tr > th.__left{
+    text-align: left;
+    padding-left: 120px;
+}
+.wrapper{
+    min-height: 745px;
+}
+
+.__width_960{
+    min-width: 960px;
+}
+.__width_850{
+    width: 850px;
+}
+
+.bad-link{
+    color: white;
+    background-color: #e85934;
+    padding: 2px 7px;
+    border-radius: 7px;
+}
+.overlay{
+    background-color: black;
+    opacity: 0.5;
+    width: 100%;
+    height: 300%;
+    position: absolute;
+    top: 0px;
+    z-index: 100;
+    overflow: hidden;
+}
+.modal-win{
+    position: absolute;
+    left: 25%;
+    z-index: 110;
+    top: 10%;
+    opacity: 1;
+    background-color: white;
+    width: 900px;
+    height: 810px;
+    border: 1px solid #b4b2ab;
+    border-radius: 3px;
+    padding: 25px 10px 20px 20px;
+    transition: 1.2s ease;
+}
+
+.__width_70{
+    width: 70%;
+}
+
+.__hide_top{
+    transition: 1s ease;
+    top: -130%;
+    opacity: 0;
+}
+
+.modal-close{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.rubric-block{
+    width: 100%;
+    height:  100%;
+}
+input.small-input{
+    width: 40px;
+    text-align: center;
+    margin: 0;
+    height: 2rem;
+}
+
+input.__input_image{
+    float: right;
+    width: 90%;
+}
+
+.accept-block{
+    position: absolute;
+    margin-top: -32px;
+    margin-left: 160px;
+    opacity: 0;
+    transform: scale(0.1);
+    transition: 0.5s ease;
+}
+.accept-block.__show{
+    opacity: 1;
+    transition: 0.5s ease;
+    transform: scale(1);
+}
+
+.check_days{
+    cursor: pointer;
+    padding: 4px;
+}
+.check_days:hover{
+    text-decoration: underline;
+}
+.modal-article{
+    overflow-y: scroll;
+    height: 700px;
+}
+.news-title{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-margined{
+    margin-top: -18px;
+    margin-right: -18px;
+}
+.status{
+    font-weight: 700;
+}
+
+/**MATERIAL STYLES**/
+
+.decide-actions{
+    position: absolute;
+    margin-top: -40px;
+    margin-left: 95px;
+}
+.decide-actions li {
+    position: relative;
+    display: inline-block;
+}
+
+
+.btn-hovered:hover{
+    opacity: 0.8;
+}
+
+/**DATEPICKER STYLES**/
+
+.datepicker{
+    background-color: #ffffff;
+    position: absolute;
+    margin-top: 10px;
+    border: 1px solid #d0d0d0;
+}
+.datepicker table td, .datepicker table th{
+    padding: 10px 10px;
+}
+
+/**VUE STYLES**/
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .45s ease;
+    transform: scale(1);
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active для <2.1.8 */ {
+    opacity: 0;
+    transition: 0.3s ease;
+    transform: scale(0.4);
+}

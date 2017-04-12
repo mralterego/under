@@ -22,6 +22,16 @@ Route::get('/social', function () {
     return 'success';
 });
 
+Route::group(['prefix' => '/parser'], function(){
+
+    Route::get('/index', ['as' => 'parser.index', 'uses' => 'Admin\ParserController@index']);
+    Route::get('/work', ['as' => 'parser.work', 'uses' => 'Admin\ParserController@parse']);
+
+});
+
+
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

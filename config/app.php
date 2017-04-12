@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         //vk provider
         \SocialiteProviders\Manager\ServiceProvider::class,
+        //parser
+        \Yangqi\Htmldom\HtmldomServiceProvider::class
     ],
 
     /*
@@ -227,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 	    'Socialite' => \Laravel\Socialite\Facades\Socialite::class,
+        'Htmldom' => \Yangqi\Htmldom\Htmldom::class,
     ],
 
 ];
