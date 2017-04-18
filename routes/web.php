@@ -25,7 +25,12 @@ Route::get('/social', function () {
 Route::group(['prefix' => '/parser'], function(){
 
     Route::get('/index', ['as' => 'parser.index', 'uses' => 'Admin\ParserController@index']);
+
     Route::get('/work', ['as' => 'parser.work', 'uses' => 'Admin\ParserController@parse']);
+
+    Route::get('/test', ['as' => 'parser.test', 'uses' => 'Admin\ParserController@test']);
+
+    Route::any('/create', ['as' => 'parser.create', 'uses' => 'Admin\ParserController@create']);
 
 });
 

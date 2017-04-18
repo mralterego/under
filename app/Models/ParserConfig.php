@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class ParserConfig extends Model
 {
 
     protected $connection = 'pgsql';
 
-    protected $table = 'events';
+    protected $table = 'parser_config';
 
     protected $primaryKey = 'id';
 
     public $incrementing = true;
 
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
-        'title', 'content', 'image', 'place', 'author', 'price', 'date',
+        'alias', 'url', 'events_path', 'title_path', 'link_path', 'date_path', 'img_path', 'article_path', 'isActive',
     ];
 
     /**
@@ -26,7 +26,5 @@ class Event extends Model
      *
      * @var array
      */
-    protected $hidden = [
-
-    ];
+    protected $hidden = [];
 }

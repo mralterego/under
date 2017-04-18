@@ -48,4 +48,54 @@ class CMS
         }
 
     }
+
+    public static function parse($url, $alias, $events_path, $title_path, $date_path, $link_path, $img_path, $article_path)
+    {
+        $html = new \Htmldom($url);
+        $dir = public_path().config('conf.dirs.parser').$alias;
+        $result = [];
+
+        $event = $html->find($events_path);
+
+        foreach ($event as $key => $val){
+
+            foreach($html->find($title_path) as $title){
+                $result[$key]['title'] = $title->plaintext;
+            }
+            foreach($html->find($date_path) as $date){
+                $date_int = preg_replace('/[^0-9]/', '', $date->plaintext);
+                $date_text = preg_replace('/[^a-zа-я\s]/ui', '', $date->plaintext);
+                $new_date =  $date_int." ".trim($date_text)." ".date("Y");
+                $result[$key]['date'] = CMS::dateFormat($new_date);
+            }
+            foreach($html->find($link_path) as $link){
+                $result[$key]['link'] = $link->href;
+                $new_html =  new \Htmldom($link->href);
+
+                $article = '';
+                foreach($new_html->find($article_path) as $text){
+                    if (stripos($text, "<img") == false){
+                        $article .= $text;
+                    };
+                }
+                $result[$key]['article'] = $article;
+
+                foreach($new_html->find($img_path) as $img){
+                    $split = explode(".", $img->src);
+                    $split = array_reverse($split);
+                    $ext = $split[0];
+                    $name = rtrim(strtr(base64_encode($img->src), '+/', '-_'), '=');
+                    $name = substr($name, 0, 15);
+                    $file = $dir.time()."_".$name.".".$ext;
+                    $result[$key]['image'] = config('conf.dirs.parser').$alias."/".time()."_".$name.".".$ext;
+                    $image = file_get_contents($img->src);
+                    file_put_contents($file, $image);
+                }
+            }
+        }
+        return $result;
+    }
+
+
+
 }
