@@ -30,7 +30,9 @@ Route::group(['prefix' => '/parser'], function(){
 
     Route::get('/test', ['as' => 'parser.test', 'uses' => 'Admin\ParserController@test']);
 
-    Route::any('/create', ['as' => 'parser.create', 'uses' => 'Admin\ParserController@create']);
+    Route::get('/api', ['as' => 'parser.api', 'uses' => 'Admin\ParserController@api']);
+
+    Route::post('/create', ['as' => 'parser.create', 'uses' => 'Admin\ParserController@create']);
 
 });
 
