@@ -22,6 +22,9 @@ table.__left > thead> tr > th.__left{
 .__width_850{
     width: 850px;
 }
+.__test-size{
+    font-size: 10px;
+}
 
 .bad-link{
     color: white;

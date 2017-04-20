@@ -7,6 +7,7 @@ use App\Helpers\CMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Models\ParserConfig;
+use App\Models\Event;
 
 
 class ParserController extends Controller
@@ -29,6 +30,7 @@ class ParserController extends Controller
         $this->validate($request, [
             'url' => 'required|filled',
             'alias' => 'required|filled',
+            'place' => 'required|filled',
             'events_path' => 'required|filled',
             'title_path' => 'required|filled',
             'date_path' => 'required|filled',
@@ -54,6 +56,7 @@ class ParserController extends Controller
             [
                 'url' => $input['url'],
                 'alias' => $input['alias'],
+                'place' => $input['place'],
                 'events_path' => $input['events_path'],
                 'title_path' => $input['title_path'],
                 'date_path' => $input['date_path'],
@@ -74,8 +77,21 @@ class ParserController extends Controller
 
     public function parse()
     {
-
         $result = CMS::parse('http://www.dottm.ru/event/', 'dot', '#events-list li', '#events-list h2 a', '.post-meta', '#events-list a.more1', 'article img', 'article p');
+
+
+        foreach ($result as $item){
+            $output = Event::insert(
+                [
+                    "title" => $item['title'],
+                    "content" => $item['article'],
+                    "image" => $item['image'],
+                    "date" => $item['date']
+                ]
+            );
+
+        }
+
 
 
     }
@@ -93,12 +109,13 @@ class ParserController extends Controller
         ]);
     }
 
-    public function test(Request $request)
+    public function testDot(Request $request)
     {
 
         $this->validate($request, [
             'url' => 'required|filled',
             'alias' => 'required|filled',
+            'place' => 'required|filled',
             'events_path' => 'required|filled',
             'title_path' => 'required|filled',
             'date_path' => 'required|filled',
@@ -113,7 +130,7 @@ class ParserController extends Controller
             $input[$key] = str_replace("@", "#", $value);
         }
 
-        $result = CMS::parse($input['url'], $input['alias'], $input['events_path'], $input['title_path'], $input['date_path'], $input['link_path'], $input['img_path'], $input['article_path']);
+        $result = CMS::parserDot($input['url'], $input['alias'], $input['events_path'], $input['title_path'], $input['date_path'], $input['link_path'], $input['img_path'], $input['article_path']);
 
         return response()->json([
             "response" => $result

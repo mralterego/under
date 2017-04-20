@@ -28,7 +28,7 @@ class CMS
         return strtr($string, $converter);
     }
 
-    public static function dateFormat($string)
+    public static function dateFormatDot($string)
     {
         $split = explode(" ", $string);
 
@@ -49,10 +49,10 @@ class CMS
 
     }
 
-    public static function parse($url, $alias, $events_path, $title_path, $date_path, $link_path, $img_path, $article_path)
+    public static function parserDot($url, $alias, $events_path, $title_path, $date_path, $link_path, $img_path, $article_path)
     {
         $html = new \Htmldom($url);
-        $dir = public_path().config('conf.dirs.parser').$alias;
+        $dir = public_path().config('conf.dirs.parser').$alias."/";
         $result = [];
 
         $event = $html->find($events_path);
@@ -66,7 +66,7 @@ class CMS
                 $date_int = preg_replace('/[^0-9]/', '', $date->plaintext);
                 $date_text = preg_replace('/[^a-zа-я\s]/ui', '', $date->plaintext);
                 $new_date =  $date_int." ".trim($date_text)." ".date("Y");
-                $result[$key]['date'] = CMS::dateFormat($new_date);
+                $result[$key]['date'] = CMS::dateFormatDot($new_date);
             }
             foreach($html->find($link_path) as $link){
                 $result[$key]['link'] = $link->href;
@@ -75,7 +75,9 @@ class CMS
                 $article = '';
                 foreach($new_html->find($article_path) as $text){
                     if (stripos($text, "<img") == false){
-                        $article .= $text;
+                        if (stripos($text, "<iframe") == false) {
+                            $article .= $text;
+                        }
                     };
                 }
                 $result[$key]['article'] = $article;

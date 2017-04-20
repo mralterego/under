@@ -26,9 +26,9 @@ Route::group(['prefix' => '/parser'], function(){
 
     Route::get('/index', ['as' => 'parser.index', 'uses' => 'Admin\ParserController@index']);
 
-    Route::get('/work', ['as' => 'parser.work', 'uses' => 'Admin\ParserController@parse']);
+    //Route::get('/work', ['as' => 'parser.test', 'uses' => 'Admin\ParserController@parse']);
 
-    Route::get('/test', ['as' => 'parser.test', 'uses' => 'Admin\ParserController@test']);
+    Route::get('/testdot', ['as' => 'parser.test', 'uses' => 'Admin\ParserController@testDot']);
 
     Route::get('/api', ['as' => 'parser.api', 'uses' => 'Admin\ParserController@api']);
 

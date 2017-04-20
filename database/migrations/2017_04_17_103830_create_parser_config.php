@@ -29,6 +29,9 @@ class CreateParserConfig extends Migration
             //url
             $table->string('url')->nullable();
 
+            //url
+            $table->string('place')->nullable();
+
             //alias
             $table->string('events_path')->nullable();
 
