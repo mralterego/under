@@ -75,22 +75,18 @@ class ParserController extends Controller
     }
 
 
-    public function parse()
+    public function parseAndSave()
     {
-        $result = CMS::parse('http://www.dottm.ru/event/', 'dot', '#events-list li', '#events-list h2 a', '.post-meta', '#events-list a.more1', 'article img', 'article p');
 
+        $cfgPsytribe = ParserConfig::where('alias', 'psytribe')->get();
 
-        foreach ($result as $item){
-            $output = Event::insert(
-                [
-                    "title" => $item['title'],
-                    "content" => $item['article'],
-                    "image" => $item['image'],
-                    "date" => $item['date']
-                ]
-            );
+        $eventsPsytribe = CMS::parserPsytribe($cfgPsytribe->url,$cfgPsytribe->alias, $cfgPsytribe->events_path, $cfgPsytribe->title_path, $cfgPsytribe->date_path, $cfgPsytribe->link_path, $cfgPsytribe->img_path, $cfgPsytribe->article_path);
 
-        }
+        
+
+        $cfgDot = ParserConfig::where('alias', 'dot')->get();
+
+        $eventsDot = CMS::parserDot($cfgDot->url,$cfgDot->alias, $cfgDot->events_path, $cfgDot->title_path, $cfgDot->date_path, $cfgDot->link_path, $cfgDot->img_path, $cfgDot->article_path);
 
 
 
@@ -135,6 +131,34 @@ class ParserController extends Controller
         return response()->json([
             "response" => $result
         ]);
+    }
+
+
+    public function testPsyTribe(Request $request)
+    {
+        $this->validate($request, [
+            'url' => 'required|filled',
+            'alias' => 'required|filled',
+            'place' => 'required|filled',
+            'events_path' => 'required|filled',
+            'title_path' => 'required|filled',
+            'date_path' => 'required|filled',
+            'img_path' => 'required|filled',
+            'link_path' => 'required|filled',
+            'article_path' => 'required|filled'
+        ]);
+
+        $input = Input::all();
+
+        foreach ($input as $key => $value){
+            $input[$key] = str_replace("@", "#", $value);
+        }
+        $result = CMS::parserPsytribe($input['url'], $input['alias'], $input['events_path'], $input['title_path'], $input['date_path'], $input['link_path'], $input['img_path'], $input['article_path']);
+
+        return response()->json([
+            "response" => $result
+        ]);
+
     }
 
 }

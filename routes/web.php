@@ -26,13 +26,18 @@ Route::group(['prefix' => '/parser'], function(){
 
     Route::get('/index', ['as' => 'parser.index', 'uses' => 'Admin\ParserController@index']);
 
-    //Route::get('/work', ['as' => 'parser.test', 'uses' => 'Admin\ParserController@parse']);
+    Route::get('/work', ['as' => 'parser.test', 'uses' => 'Admin\ParserController@parseAndSave']);
 
     Route::get('/testdot', ['as' => 'parser.test', 'uses' => 'Admin\ParserController@testDot']);
+
+    Route::get('/testpsytribe', ['as' => 'parser.psytribe', 'uses' => 'Admin\ParserController@testPsyTribe']);
 
     Route::get('/api', ['as' => 'parser.api', 'uses' => 'Admin\ParserController@api']);
 
     Route::post('/create', ['as' => 'parser.create', 'uses' => 'Admin\ParserController@create']);
+
+
+
 
 });
 

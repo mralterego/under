@@ -49,11 +49,39 @@ class CMS
 
     }
 
+
+    public static function dateFormatPsytribe($string)
+    {
+        $string = strip_tags($string);
+        $string = str_replace(".", "/", $string);
+        if (strlen($string) < 11){
+            $date = date_create($string);
+            return $date;
+        } else {
+            $parts = explode("-", $string);
+            $date = $parts[0].substr($parts[1], 2);
+            $date = date_create($date);
+            return $date;
+        }
+    }
+
+    public static function createDir($dir)
+    {
+        $result = false;
+
+        if (!is_dir($dir)){
+           $result = mkdir($dir, 755);
+        }
+        return $result;
+    }
+
     public static function parserDot($url, $alias, $events_path, $title_path, $date_path, $link_path, $img_path, $article_path)
     {
         $html = new \Htmldom($url);
         $dir = public_path().config('conf.dirs.parser').$alias."/";
         $result = [];
+
+        CMS::createDir($dir);
 
         $event = $html->find($events_path);
 
@@ -81,6 +109,7 @@ class CMS
                     };
                 }
                 $result[$key]['article'] = $article;
+                $result[$key]['place'] = 'DOT';
 
                 foreach($new_html->find($img_path) as $img){
                     $split = explode(".", $img->src);
@@ -95,6 +124,57 @@ class CMS
                 }
             }
         }
+        return $result;
+    }
+
+    public static function parserPsytribe($url, $alias, $events_path, $title_path, $date_path, $link_path, $img_path, $article_path)
+    {
+
+        $html = new \Htmldom($url);
+        $dir = public_path().config('conf.dirs.parser').$alias."/";
+
+        $result = [];
+
+        CMS::createDir($dir);
+
+        $event = $html->find($events_path);
+
+        foreach($html->find($title_path) as $key => $title){
+            $split = explode('@',  $title->plaintext);
+            $result[$key]['title'] = trim($split[0]);
+            $result[$key]['place'] = trim($split[1]);
+
+        }
+        foreach($html->find($date_path) as $key => $date){
+
+            $result[$key]['date'] =  CMS::dateFormatPsytribe($date);
+        }
+
+        foreach($html->find($link_path) as $key => $link){
+            $result[$key]['link'] = "http://psytribe.org".$link->href;
+            $new_html =  new \Htmldom("http://psytribe.org".$link->href);
+
+            $img = $new_html->find($img_path, 0);
+
+            $split = explode(".", $img->src);
+            $split = array_reverse($split);
+            $ext = $split[0];
+            $name = rtrim(strtr(base64_encode($img->src), '+/', '-_'), '=');
+            $name = substr($name, 0, 15);
+            $file = $dir.time()."_".$name.".".$ext;
+            $result[$key]['image'] = config('conf.dirs.parser').$alias."/".time()."_".$name.".".$ext;
+            $image = file_get_contents($img->src);
+            file_put_contents($file, $image);
+
+            $article = "";
+            foreach($new_html->find($article_path) as $text){
+                if (stripos($text, "<img") == false){
+                    $article .= $text;
+                }
+            }
+            $result[$key]['article'] = $article;
+        }
+
         return $result;
     }
 
