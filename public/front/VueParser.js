@@ -116,7 +116,7 @@ Vue.component('event-parser', {
         },
         test: function(){
             var self = this,
-                uri = "/parser/test" + self.alias;
+                uri = "/parser/test/" + self.alias;
             $.get(uri,
                 {
                     url: self.url,

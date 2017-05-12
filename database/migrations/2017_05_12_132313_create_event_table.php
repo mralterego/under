@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventsTable extends Migration
+class CreateEventTable extends Migration
 {
     public $table = 'events';
     /**
@@ -15,6 +15,7 @@ class CreateEventsTable extends Migration
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
+
             $table->increments('id')->unique()->index();
 
             //заголовок
@@ -23,7 +24,7 @@ class CreateEventsTable extends Migration
             //содержание
             $table->text('content')->nullable();
 
-            //изображение в base64
+            //изображение ссылка
             $table->text('image')->nullable();
 
             //автор
@@ -32,7 +33,10 @@ class CreateEventsTable extends Migration
             //место проведения мероприятия
             $table->string('place')->nullable();
 
-            //место проведения мероприятия
+            //ссылка на полное мероприятие
+            $table->string('link')->nullable();
+
+            //
             $table->string('price')->nullable();
 
             //время проведения мероприятия
@@ -52,3 +56,4 @@ class CreateEventsTable extends Migration
         Schema::dropIfExists($this->table);
     }
 }
+

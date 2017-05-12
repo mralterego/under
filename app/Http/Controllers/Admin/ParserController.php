@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Models\ParserConfig;
 use App\Models\Event;
+use Carbon\Carbon;
 
 
 class ParserController extends Controller
@@ -78,16 +79,40 @@ class ParserController extends Controller
     public function parseAndSave()
     {
 
+        $today = Carbon::today();
+        $titles = Event::pluck('title')->toArray();
+        $events = [];
+
         $cfgPsytribe = ParserConfig::where('alias', 'psytribe')->get();
-
-        $eventsPsytribe = CMS::parserPsytribe($cfgPsytribe->url,$cfgPsytribe->alias, $cfgPsytribe->events_path, $cfgPsytribe->title_path, $cfgPsytribe->date_path, $cfgPsytribe->link_path, $cfgPsytribe->img_path, $cfgPsytribe->article_path);
-
-        
-
         $cfgDot = ParserConfig::where('alias', 'dot')->get();
+        $cfgGribych = ParserConfig::where('alias', 'gribych')->get();
 
-        $eventsDot = CMS::parserDot($cfgDot->url,$cfgDot->alias, $cfgDot->events_path, $cfgDot->title_path, $cfgDot->date_path, $cfgDot->link_path, $cfgDot->img_path, $cfgDot->article_path);
+        $eventsPsytribe = CMS::parserPsytribe($cfgPsytribe[0]->url,$cfgPsytribe[0]->alias, $cfgPsytribe[0]->events_path, $cfgPsytribe[0]->title_path, $cfgPsytribe[0]->date_path, $cfgPsytribe[0]->link_path, $cfgPsytribe[0]->img_path, $cfgPsytribe[0]->article_path);
+        $eventsDot = CMS::parserDot($cfgDot[0]->url,$cfgDot[0]->alias, $cfgDot[0]->events_path, $cfgDot[0]->title_path, $cfgDot[0]->date_path, $cfgDot[0]->link_path, $cfgDot[0]->img_path, $cfgDot[0]->article_path);
+        $eventsGribych = CMS::parserGribych($cfgGribych[0]->url,$cfgGribych[0]->alias, $cfgGribych[0]->events_path, $cfgGribych[0]->title_path, $cfgGribych[0]->date_path, $cfgGribych[0]->link_path, $cfgGribych[0]->img_path, $cfgGribych[0]->article_path);
 
+        # объединяем массивы с событиями
+        $events = array_merge($eventsPsytribe, $eventsDot, $eventsGribych);
+
+        if (!empty($events)){
+            foreach ($events as $k => $event){
+                # если дата с будущем и нет таких записей заголовокоа прежде
+                if ($event['date'] > $today AND !in_array($event['title'], $titles)){
+                    # формируем событие и сохраняем
+                    $item = [
+                        'title' => $event['title'],
+                        'content' => $event['article'],
+                        'image' => $event['image'],
+                        'author' => 'parser',
+                        'price' => 'none',
+                        'link' => $event['link'],
+                        'place' => $event['place'],
+                        'date' => $event['date']
+                    ];
+                    Event::create($item);
+                }
+            }
+        }
 
 
     }
@@ -159,6 +184,42 @@ class ParserController extends Controller
             "response" => $result
         ]);
 
+    }
+
+    public function testGribych(Request $request)
+    {
+        $this->validate($request, [
+            'url' => 'required|filled',
+            'alias' => 'required|filled',
+            'place' => 'required|filled',
+            'events_path' => 'required|filled',
+            'title_path' => 'required|filled',
+            'date_path' => 'required|filled',
+            'img_path' => 'required|filled',
+            'link_path' => 'required|filled',
+            'article_path' => 'required|filled'
+        ]);
+
+        $input = Input::all();
+
+        foreach ($input as $key => $value){
+            $input[$key] = str_replace("@", "#", $value);
+        }
+
+        $result = CMS::parserGribych($input['url'], $input['alias'], $input['events_path'], $input['title_path'], $input['date_path'], $input['link_path'], $input['img_path'], $input['article_path']);
+
+        return response()->json([
+            "response" => $result
+        ]);
+
+    }
+
+
+
+
+    public function testTest(Request $request)
+    {
+        CMS::parserTest();
     }
 
 }
