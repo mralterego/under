@@ -1,6 +1,8 @@
 <?php
+
 return [
     'dirs' => [
-        'parser' => '/images/parser/'
+        'parser' => '/images/parser/',
+        'events' => '/images/events/',
     ],
 ];

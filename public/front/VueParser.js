@@ -92,21 +92,13 @@ Vue.component('event-parser', {
                     </div>\
                 </div>\
               </div>\
-                  <div class="card-action">\
-                        <div v-on:click="isActive = !isActive"  class="left __input_margin">\
-                            <input type="checkbox" v-bind:value="isActive" v-bind:checked="isActive === true"  class="items-filter"> \
-                            <label>активен</label>\
-                        </div>\
-                        <a class="right orange darken-1 waves-effect waves-light btn">\
-                            <i class="material-icons right dp48">sync</i>\
-                            &nbsp;&nbsp;Обновить\
-                        </a>\
-                        <a class="right blue darken-2 waves-effect waves-light btn __margin-right_xl" v-on:click="test">\
-                            <i class="material-icons right dp48">build</i>\
-                            &nbsp;&nbsp;Протестировать\
-                        </a>\
-                    </div>\
-              </div> \
+              <div class="card-action">\
+                    <a class="right blue darken-2 waves-effect waves-light btn __margin-right_xl" v-on:click="test">\
+                        <i class="material-icons right dp48">build</i>\
+                        &nbsp;&nbsp;Протестировать\
+                    </a>\
+                </div>\
+            </div> \
         </div>\
       \
       ',
@@ -181,7 +173,6 @@ var vm = new Vue({
                     article_path: self.article_path
                 })
                 .done(function(data) {
-                    console.log(data.response);
                     if (data.response != 0 || data.response != null || data.response != undefined ){
                         self.testStatus = true;
                         self.testResponse = data.response;
@@ -221,7 +212,6 @@ var vm = new Vue({
             var self = this,
                 uri = "/parser/api";
             $.get(uri, function(data) {
-                console.log(data);
                 self.parsers = data;
             });
         }

@@ -26,11 +26,9 @@ Route::group(['prefix' => '/parser'], function(){
 
     Route::get('/index', ['as' => 'parser.index', 'uses' => 'Admin\ParserController@index']);
 
-    Route::get('/work', ['as' => 'parser.test', 'uses' => 'Admin\ParserController@parseAndSave']);
+    Route::get('/work', ['as' => 'parser.work', 'uses' => 'Admin\ParserController@parseAndSave']);
 
     Route::get('/api', ['as' => 'parser.api', 'uses' => 'Admin\ParserController@api']);
-
-    Route::post('/create', ['as' => 'parser.create', 'uses' => 'Admin\ParserController@create']);
 
     Route::get('/test/dot', ['as' => 'parser.test.dot', 'uses' => 'Admin\ParserController@testDot']);
 
@@ -40,6 +38,15 @@ Route::group(['prefix' => '/parser'], function(){
 
     Route::get('/test/test', ['as' => 'parser.test.test', 'uses' => 'Admin\ParserController@testTest']);
 
+});
+
+Route::group(['prefix' => '/admin'], function(){
+
+    Route::get('/events/index', ['as' => 'admin.events.index', 'uses' => 'Admin\EventsController@index']);
+
+    Route::post('/events/create', ['as' => 'admin.events.create', 'uses' => 'Admin\EventsController@create']);
+
+    Route::post('/events/upload', ['as' => 'admin.events.upload', 'uses' => 'Admin\EventsController@upload']);
 
 });
 
