@@ -5,47 +5,33 @@ var vm = new Vue({
         title: "",
         place: "",
         price: "",
+        tags: "",
         link: "",
         poster: "",
+        published: false,
         showPoster: false
     },
     created: function(){
 
     },
     methods: {
-        test: function(){
-            var self = this,
-                uri = "/parser/test" + self.alias;
-            $.get(uri,
-                {
-                    url: self.url,
-                    alias: self.alias,
-                    place: self.place,
-                    events_path: self.events_path,
-                    title_path: self.title_path,
-                    date_path: self.date_path,
-                    img_path: self.img_path,
-                    link_path: self.link_path,
-                    article_path: self.article_path
-                })
-                .done(function(data) {
-                    if (data.response != 0 || data.response != null || data.response != undefined ){
-                        self.testStatus = true;
-                        self.testResponse = data.response;
-                    }
-                })
-                .fail(function(error) {
-                    self.testStatus = true;
-                    self.testResponse = error;
-                });
-        },
         create: function(){
             var self = this,
-                uri = "/admin/event/create";
+                date = self.dateBuilder("date"),
+                content = editor.getData(),
+                uri = "/admin/events/create";
 
             $.post(uri,
                 {
-
+                    title: self.title,
+                    place: self.place,
+                    link: self.link,
+                    price: self.price,
+                    image: self.poster,
+                    tags: self.tags,
+                    date: date,
+                    content: content,
+                    published: self.published
                 })
                 .done(function(data) {
                     console.log(data.response);
@@ -54,7 +40,19 @@ var vm = new Vue({
                     console.log(error);
                 });
         },
-
+        clear: function(){
+            editor.setData("");
+        },
+        dateBuilder:function(id){
+            var date = document.getElementById(id).value;
+            if (date == ""){
+                return "";
+            } else {
+                var splited = date.split('.');
+                date = splited[2] + "-"  + splited[1]+ "-" + splited[0];
+                return date;
+            }
+        },
         uploadImage: function(event){
             var self = this,
                 uri = '/admin/events/upload';

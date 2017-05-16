@@ -36,6 +36,9 @@ class CreateEventTable extends Migration
             //ссылка на полное мероприятие
             $table->string('link')->nullable();
 
+            //tags
+            $table->json('tags')->nullable();
+
             //ссылка на полное мероприятие
             $table->boolean('published')->nullable();
 
@@ -43,7 +46,7 @@ class CreateEventTable extends Migration
             $table->string('price')->nullable();
 
             //время проведения мероприятия
-            $table->string('date')->nullable();
+            $table->timestamp('date')->nullable();
 
             $table->timestamps();
         });

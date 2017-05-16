@@ -113,6 +113,7 @@ class CMS
                 }
                 $result[$key]['article'] = $article;
                 $result[$key]['place'] = 'DOT';
+                $result[$key]['tags'] = ['techno', 'техно'];
 
                 foreach($new_html->find($img_path) as $img){
                     $split = explode(".", $img->src);
@@ -175,6 +176,7 @@ class CMS
                 }
             }
             $result[$key]['article'] = $article;
+            $result[$key]['tags'] = ['psy', 'psychedelic'];
         }
 
         return $result;
@@ -227,7 +229,7 @@ class CMS
                     $res[$k]['title'] = $title_splited[1];
                     $res[$k]['place'] = "Модный клуб &laquo;Грибоедов&raquo;";
                     $res[$k]['article'] = "";
-
+                    $res[$k]['tags'] = ['techno', 'техно'];
 
                     $date = $html->find($date_path, $key)->children(0);
                     $splited = explode(',', $date);

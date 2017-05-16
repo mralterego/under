@@ -15,6 +15,9 @@
 
 @section("foot")
     <script src="/common/js/ckeditor-helper.js"></script>
+    <script src="/addons/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/addons/datepicker/locales/bootstrap-datepicker.ru.min.js" charset="UTF-8" ></script>
+    <script src="/common/js/materialize-helper.js"></script>
 @endsection
 
 @section("vue")
@@ -26,60 +29,76 @@
         <h4 class="center __margin-top_xxl">Добавить событие</h4>
         <div class="row">
             <div class="col s12">
-                <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl __padding-bottom_xl">
+                <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl ">
                     <div class="row">
                         <div class="col s12">
                             <div class="row">
                                 <div class="card-content black-text">
                                     <div class="input-group">
                                         <div class="input-field col s6">
-                                            <input type="text" class="form-control" v-model="title">
+                                            <input type="text" v-model="title">
                                             <label class="active">Название</label>
                                         </div>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s6">
-                                            <input type="text" class="form-control" v-model="place">
+                                            <input type="text"  v-model="link">
+                                            <label class="active">Ссылка</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group input-daterange">
+                                        <div class="input-field col s4">
+                                            <input type="text" id="date" class="form-control" >
+                                            <label class="active">Дата проведения</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-field col s4">
+                                            <input type="text" v-model="place">
                                             <label class="active">Место</label>
                                         </div>
                                     </div>
                                     <div class="input-group">
-                                        <div class="input-field col s6">
-                                            <input type="text" class="form-control" v-model="price">
+                                        <div class="input-field col s4">
+                                            <input type="text" v-model="price">
                                             <label class="active">Цена</label>
                                         </div>
                                     </div>
                                     <div class="input-group">
-                                        <div class="input-field col s6">
-                                            <input type="text" class="form-control" v-model="link">
-                                            <label class="active">Ссылка</label>
-                                        </div>
-                                    </div>
-                                    <div class="input-group">
                                         <div class="input-field col s12">
-                                            <textarea class="materialize-textarea"></textarea>
-                                            <label class="active">Статья</label>
+                                            <input type="text" v-model="tags">
+                                            <label class="active">Тэги, через запятую</label>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--skeditor--->
+            <div class="col s12">
+                <div id="main">
+                    <div>
+                        <div class="grid-container">
+                            <div class="grid-width-100">
+                                <div id="editor">
 
-                                    <!--skeditor--->
-
-                                    <!--div id="main">
-                                        <div>
-                                            <div class="grid-container">
-                                                <div class="grid-width-100">
-                                                    <div id="editor">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="editor-content" class="__hidden">
-                                        </div>
-                                    </div-->
-
-                                    <!--skeditor--->
-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="editor-content" class="__hidden">
+                    </div>
+                </div>
+            </div>
+            <!--skeditor--->
+            <div class="col s12">
+                <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl __padding-bottom_s">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="card-content black-text">
                                     <div class="input-group">
                                         <div class="file-field input-field col s6">
                                             <div class="btn">
@@ -101,12 +120,25 @@
 
                         </div>
                     </div>
-
-                    <div class="card-action">
-                        <a class="right blue darken-2 waves-effect waves-light btn " >
-                            <i class="material-icons right dp48">add_circle</i>
-                            &nbsp;&nbsp;Добавить
-                        </a>
+                    <div class="row">
+                        <div class="col s6">
+                            <div class=" __padding-left_l __padding-top_m">
+                                <input type="checkbox" id="published"  v-model="published" />
+                                <label for="published">Опубликовано</label>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div class="__padding-right_l">
+                                <a class="right waves-effect waves-light btn-large  __margin-left_l" v-on:click="create">
+                                    &nbsp;&nbsp;Добавить
+                                    <i class="material-icons right dp48">note_add</i>
+                                </a>
+                                <a class="right amber darken-3 btn-hovered waves-effect waves-light btn-large" v-on:click="clear">
+                                    &nbsp;&nbsp;Очистить
+                                    <i class="material-icons right dp48">clear</i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

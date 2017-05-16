@@ -18,7 +18,11 @@ class Event extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'title', 'content', 'image', 'place', 'author', 'price', 'date', 'link', 'published',
+        'title', 'content', 'image', 'place', 'author', 'price', 'date', 'link', 'published', 'tags',
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
     ];
 
     /**

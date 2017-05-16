@@ -55,6 +55,7 @@ class ParserController extends Controller
                         'link' => $event['link'],
                         'place' => $event['place'],
                         'date' => $event['date'],
+                        'tags' => $event['tags'],
                         'published' => true
                     ];
                     Event::create($item);
@@ -63,19 +64,6 @@ class ParserController extends Controller
         }
 
 
-    }
-
-    public function update(Request $request)
-    {
-        $this->validate($request, [
-            'url' => 'required|filled',
-            'events_path' => 'required|filled',
-            'title_path' => 'required|filled',
-            'date_path' => 'required|filled',
-            'img_path' => 'required|filled',
-            'link_path' => 'required|filled',
-            'article_path' => 'required|filled'
-        ]);
     }
 
     public function testDot(Request $request)

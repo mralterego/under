@@ -93,7 +93,7 @@ Vue.component('event-parser', {
                 </div>\
               </div>\
               <div class="card-action">\
-                    <a class="right blue darken-2 waves-effect waves-light btn __margin-right_xl" v-on:click="test">\
+                    <a class="right blue darken-2 waves-effect waves-light btn " v-on:click="test">\
                         <i class="material-icons right dp48">build</i>\
                         &nbsp;&nbsp;Протестировать\
                     </a>\
