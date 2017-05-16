@@ -60,11 +60,15 @@ class EventsController extends Controller
 
         $out = Event::create($item);
 
-
         # если сохранение успешно output = true, иначе false
         return response()->json([
             "response" => $out
         ]);
+    }
+
+    public function item($id)
+    {
+
     }
 
 
@@ -89,5 +93,10 @@ class EventsController extends Controller
                 "response" => "There is no input file"
             ]);
         }
+    }
+
+    public function api(Request $request)
+    {
+
     }
 }
