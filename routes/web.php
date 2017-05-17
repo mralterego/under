@@ -44,11 +44,13 @@ Route::group(['prefix' => '/admin'], function(){
 
     Route::get('/events/index', ['as' => 'admin.events.index', 'uses' => 'Admin\EventsController@index']);
 
-    Route::get('/events/{id}', ['as' => 'admin.events.index', 'uses' => 'Admin\EventsController@item'])-> where('id', '[0-9]+');
+    Route::get('/events/{id}', ['as' => 'admin.events.item', 'uses' => 'Admin\EventsController@item'])-> where('id', '[0-9]+');
 
     Route::get('/events/api', ['as' => 'admin.events.api', 'uses' => 'Admin\EventsController@api']);
 
     Route::post('/events/create', ['as' => 'admin.events.create', 'uses' => 'Admin\EventsController@create']);
+
+    Route::get('/events/update', ['as' => 'admin.events.update', 'uses' => 'Admin\EventsController@update']);
 
     Route::post('/events/upload', ['as' => 'admin.events.upload', 'uses' => 'Admin\EventsController@upload']);
 

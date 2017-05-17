@@ -31,6 +31,5 @@ class Event extends Model
      * @var array
      */
     protected $hidden = [
-
     ];
 }
