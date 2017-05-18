@@ -4,10 +4,16 @@
 @section("title", "Страница с местами")
 
 @section("head")
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
 
 @endsection
 
 @section("foot")
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAafNNNfqmsn7VHcU0rg1uw8BO0daZrj6Q&callback=initMap" async defer></script>
 
 @endsection
 
@@ -17,6 +23,7 @@
 
 @section("view")
     <div id="places_page" class="container">
+        <div id="map"></div>
         <h4 class="center __margin-top_xxl">Добавить место</h4>
         <div class="row">
             <div class="col s12">
@@ -57,7 +64,7 @@
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s4">
-                                            <input type="text" v-model="coordinates">
+                                            <input type="text" v-model="coordinates" v-on:click="getMap">
                                             <label class="active">Координаты</label>
                                         </div>
                                     </div>
@@ -89,7 +96,7 @@
                                                 <input type="file" name="image"  accept="image/*"  v-on:change="uploadImage($event)">
                                             </div>
                                             <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text" v-bind:value="poster">
+                                                <input class="file-path validate" type="text" v-bind:value="image">
                                             </div>
                                         </div>
                                     </div>
@@ -123,6 +130,8 @@
                 </div>
             </div>
         </div>
+
+
 
 
     </div>
