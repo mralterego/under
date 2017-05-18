@@ -18,6 +18,11 @@ class EventsController extends Controller
         return view('admin.events');
     }
 
+    public function eventsList()
+    {
+        return view('admin.events_list');
+    }
+
     public function create(Request $request)
     {
         $this->validate($request, [
@@ -164,13 +169,20 @@ class EventsController extends Controller
                 'published' => $intPublished,
             ]
         );
-
-
     }
-
 
     public function api(Request $request)
     {
+        $events = Event::get();
+
+        if (!empty($events)){
+            foreach ($events as $event){
+                $event['date_formatted'] = date("d.m.Y", strtotime($event['date']));
+            }
+        }
+        return response()->json([
+            'response' => $events
+        ]);
 
     }
 

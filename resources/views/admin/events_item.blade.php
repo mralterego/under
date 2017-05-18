@@ -25,7 +25,7 @@
 @endsection
 
 @section("vue")
-    <script type="text/javascript" src="/front/VueEventsItem.js"></script>
+    <script type="text/javascript" src="/front/admin/VueEventsItem.js"></script>
     <script type="text/javascript">
         Vue.nextTick(function (){
             vm.id = '{{ $id }}';
@@ -36,7 +36,6 @@
             vm.tags = '{{ $tags }}';
             vm.link = '{{ $link }}';
             vm.published = parseInt({{ $published }});
-            console.log(vm.published);
         });
     </script>
 @endsection
@@ -44,7 +43,6 @@
 @section("view")
     <div id="events_item_page" class="container">
         <div class="row">
-
             <div class="col s12">
                 <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl ">
                     <div class="row">

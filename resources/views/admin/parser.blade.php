@@ -12,7 +12,7 @@
 @endsection
 
 @section("vue")
-    <script type="text/javascript" src="/front/VueParser.js"></script>
+    <script type="text/javascript" src="/front/admin/VueParser.js"></script>
 @endsection
 
 @section("view")
