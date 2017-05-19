@@ -13,7 +13,8 @@
 @endsection
 
 @section("foot")
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAafNNNfqmsn7VHcU0rg1uw8BO0daZrj6Q&callback=initMap" async defer></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAafNNNfqmsn7VHcU0rg1uw8BO0daZrj6Q"></script>
 
 @endsection
 
@@ -22,8 +23,8 @@
 @endsection
 
 @section("view")
-    <div id="places_page" class="container">
-        <div id="map"></div>
+<div id="places_page">
+    <div class="container">
         <h4 class="center __margin-top_xxl">Добавить место</h4>
         <div class="row">
             <div class="col s12">
@@ -64,7 +65,7 @@
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s4">
-                                            <input type="text" v-model="coordinates" v-on:click="getMap">
+                                            <input type="text" v-model="coordinates" v-on:click="showModal = !showModal">
                                             <label class="active">Координаты</label>
                                         </div>
                                     </div>
@@ -130,9 +131,14 @@
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
+    <div class="overlay " v-bind:class="{ __hidden : !showModal }">
+    </div>
+    <div class="modal-win" v-bind:class="{ __hidden : !showModal }">
+        <div class="modal-close" v-on:click="showModal = !showModal">
+            <span>X</span>
+        </div>
+        <div id="map"></div>
+    </div>
+</div>
 @endsection

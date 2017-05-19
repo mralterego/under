@@ -1,7 +1,8 @@
 
 var vm = new Vue({
-    el: "#places_page",
+    el: "#places_item_page",
     data: {
+        id: "",
         title: "",
         alias: "",
         site: "",
@@ -18,46 +19,14 @@ var vm = new Vue({
         showPoster: true,
         showModal: false,
     },
-    updated: function () {
-            var self = this;
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 59.93661241484262, lng: 30.320205688476562},
-                zoom: 12
-            });
-            google.maps.event.addListener(map, "rightclick", function(event) {
-                var lat = event.latLng.lat();
-                var lng = event.latLng.lng();
-                self.position = {
-                    lat: lat,
-                    lng: lng
-                };
-                self.coordinates = lat + ", " + lng;
-            });
-            var marker = new google.maps.Marker({
-                position: self.position,
-                map: map,
-                title: 'Marker right click'
-            });
-
-    },
     methods: {
-        create: function(){
-            var self = this;
-            var uri = "/admin/places/create";
+        update: function(){
+            var self = this,
+                uri = "/admin/places/update";
 
-            self.deputy = "admin";
-            if (self.site == ""){
-                self.site = "false";
-            }
-            if (self.gallery == ""){
-                self.gallery = 0;
-            } else {
-                self.gallery = parseInt(self.gallery);
-            }
-            console.log(self.site);
-            console.log(self.gallery);
-            $.post(uri,
+            $.get(uri,
                 {
+                    id: self.id,
                     title: self.title,
                     alias: self.alias,
                     site: self.site,
@@ -104,7 +73,5 @@ var vm = new Vue({
                 });
             }
         }
-
     }
-
 });

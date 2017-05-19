@@ -44,16 +44,16 @@ table.__left > thead> tr > th.__left{
 }
 .modal-win{
     position: absolute;
-    left: 25%;
+    left: 12.5%;
     z-index: 110;
     top: 10%;
     opacity: 1;
     background-color: white;
-    width: 900px;
+    width: 75%;
     height: 810px;
     border: 1px solid #b4b2ab;
     border-radius: 3px;
-    padding: 25px 10px 20px 20px;
+    padding: 45px 0px 20px 0px;
     transition: 1.2s ease;
 }
 
@@ -69,9 +69,12 @@ table.__left > thead> tr > th.__left{
 
 .modal-close{
     position: absolute;
-    right: 5px;
+    right: 8px;
     top: 5px;
     cursor: pointer;
+}
+.modal-close span{
+    font-size: 25px;
 }
 
 .rubric-block{

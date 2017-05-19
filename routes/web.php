@@ -63,13 +63,16 @@ Route::group(['prefix' => '/admin'], function(){
 
     Route::get('/places/{id}', ['as' => 'admin.places.item', 'uses' => 'Admin\PlacesController@item'])-> where('id', '[0-9]+');
 
-    Route::get('/places/list', ['as' => 'admin.places.list', 'uses' => 'Admin\PlacesController@eventsList']);
+    Route::get('/places/list', ['as' => 'admin.places.list', 'uses' => 'Admin\PlacesController@placesList']);
 
     Route::get('/places/api', ['as' => 'admin.places.api', 'uses' => 'Admin\PlacesController@api']);
 
     Route::post('/places/create', ['as' => 'admin.places.create', 'uses' => 'Admin\PlacesController@create']);
 
     Route::get('/places/update', ['as' => 'admin.places.update', 'uses' => 'Admin\PlacesController@update']);
+
+    Route::post('/places/upload', ['as' => 'admin.places.upload', 'uses' => 'Admin\PlacesController@upload']);
+
 
 
 });
