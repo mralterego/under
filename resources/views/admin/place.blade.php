@@ -101,6 +101,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="input-group" v-if="showPoster">
                                         <div class="file-field input-field col s6">
                                             <img class="responsive-img" v-bind:src="image">

@@ -75,6 +75,8 @@ Route::group(['prefix' => '/admin'], function(){
 
 
 
+    Route::post('/gallery/upload', ['as' => 'admin.places.upload', 'uses' => 'Admin\MainController@galleryUpload']);
+
 });
 
 

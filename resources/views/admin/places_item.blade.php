@@ -118,6 +118,14 @@
                                             <img class="responsive-img" v-bind:src="image">
                                         </div>
                                     </div>
+                                    <div class="input-group">
+                                        <div class="file-field input-field col s6">
+                                            <div class="btn">
+                                                <span>Загрузить галлерею</span>
+                                                <input type="file" name="images[]"  accept="image/*"  v-on:change="uploadGallery($event)" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

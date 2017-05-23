@@ -72,6 +72,30 @@ var vm = new Vue({
                     }
                 });
             }
+        },
+        uploadGallery: function(event) {
+            var self = this,
+                uri = '/admin/gallery/upload';
+            var formdata = new FormData();
+            console.log(event.target.files);
+            formdata.append("images[]", event.target.files);
+            if (event.target.files.length > 0){
+                $.ajax({
+                    url: uri,
+                    data: formdata,
+                    type: "POST",
+                    dataType: "json",
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        console.log(data.response);
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            }
         }
     }
 });

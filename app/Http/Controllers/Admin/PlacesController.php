@@ -102,7 +102,7 @@ class PlacesController extends Controller
         $gallery = $place_params[0]['gallery'];
         $worktime = $place_params[0]['worktime'];
         $coordinates = $place_params[0]['coordinates'];
-        $tags = implode(',', json_decode($place_params[0]['tags']));
+        $tags = implode(',', $place_params[0]['tags']);
         $published = $place_params[0]['published'];
 
         $description = str_replace("\n", "<br/>", $place_params[0]['description']);
@@ -182,13 +182,13 @@ class PlacesController extends Controller
     public function api()
     {
         $places = Place::get();
-
+        /**
         if (!empty($places)){
             foreach ($places as $place){
-                $place['tags'] = json_decode($place['tags']);
+               $place['tags'] = json_encode($place['tags']);
             }
         }
-
+         **/
         return response()->json([
             'response' => $places
         ]);
@@ -216,5 +216,8 @@ class PlacesController extends Controller
             ]);
         }
     }
+
+
+
 
 }
