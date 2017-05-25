@@ -4,19 +4,15 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreateCollectiveTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public $table = 'posts';
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    public $table = 'collectives';
+
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
@@ -27,33 +23,25 @@ class CreatePostsTable extends Migration
             $table->string('alias')->nullable();
 
             //заголовок
-            $table->text('title')->nullable();
+            $table->text('name')->nullable();
 
             //содержание
-            $table->text('content')->nullable();
+            $table->text('description')->nullable();
 
-            //изображение в base64
-            $table->text('image')->nullable();
-
-            //rubric
-            $table->string('rubric')->nullable();
+            //изображение src
+            $table->string('image')->nullable();
 
             //автор
-            $table->string('author')->nullable();
+            $table->string('deputy')->nullable();
 
-            //место проведения мероприятия
+            //место
             $table->string('place')->nullable();
 
             //tags
-            $table->string('tags')->nullable();
+            $table->json('tags')->nullable();
 
-            //rate
-            $table->float('rate')->nullable();
-
-            //rated persons
-            $table->text('rated')->nullable();
-
-            $table->boolean('isPublished')->nullable();
+            //автор
+            $table->json('social')->nullable();
 
             $table->timestamps();
         });

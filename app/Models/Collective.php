@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Collective extends Model
 {
 
     protected $connection = 'pgsql';
 
-    protected $table = 'posts';
+    protected $table = 'collectives';
 
     protected $primaryKey = 'id';
 
@@ -18,12 +18,12 @@ class Post extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'alias', 'title', 'content', 'image', 'gallery', 'rubric', 'author', 'tags', 'rating', 'published'
+        'alias', 'name', 'description', 'image', 'deputy', 'place', 'tags', 'social',
     ];
 
     protected $casts = [
         'tags' => 'array',
-        'rating' => 'array'
+        'social' => 'array'
     ];
 
     /**

@@ -27,6 +27,34 @@ class CMS
         );
         return strtr($string, $converter);
     }
+    public static function rus2translit($string) {
+        $converter = array(
+            'а' => 'a',   'б' => 'b',   'в' => 'v',
+            'г' => 'g',   'д' => 'd',   'е' => 'e',
+            'ё' => 'e',   'ж' => 'zh',  'з' => 'z',
+            'и' => 'i',   'й' => 'y',   'к' => 'k',
+            'л' => 'l',   'м' => 'm',   'н' => 'n',
+            'о' => 'o',   'п' => 'p',   'р' => 'r',
+            'с' => 's',   'т' => 't',   'у' => 'u',
+            'ф' => 'f',   'х' => 'h',   'ц' => 'c',
+            'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
+            'ь' => '',  'ы' => 'y',   'ъ' => '',
+            'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
+
+            'А' => 'A',   'Б' => 'B',   'В' => 'V',
+            'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
+            'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',
+            'И' => 'I',   'Й' => 'Y',   'К' => 'K',
+            'Л' => 'L',   'М' => 'M',   'Н' => 'N',
+            'О' => 'O',   'П' => 'P',   'Р' => 'R',
+            'С' => 'S',   'Т' => 'T',   'У' => 'U',
+            'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
+            'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
+            'Ь' => '',  'Ы' => 'Y',   'Ъ' => '',
+            'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
+        );
+        return strtr($string, $converter);
+    }
 
     public static function dateFormatDot($string)
     {
@@ -54,16 +82,26 @@ class CMS
     {
         $string = strip_tags($string);
         $string = str_replace(".", "/", $string);
+
         if (strlen($string) < 11){
             $date = date_create($string);
             return $date;
         } else {
             $parts = explode("-", $string);
-            $date = $parts[0].substr($parts[1], 2);
-            $date_splited = explode("/", $date);
-            $date = $date_splited[1]."/".$date_splited[0]."/".$date_splited[2];
-            $date = date_create($date);
-            return $date;
+            if (count($parts) == 1){
+                $parts = explode(" ", $string);
+                $date = $parts[0];
+                $date_splited = explode("/", $date);
+                $date = $date_splited[1]."/".$date_splited[0]."/".$date_splited[2];
+                $date = date_create($date);
+                return $date;
+            } else {
+                $date = $parts[0].substr($parts[1], 2);
+                $date_splited = explode("/", $date);
+                $date = $date_splited[1]."/".$date_splited[0]."/".$date_splited[2];
+                $date = date_create($date);
+                return $date;
+            }
         }
     }
 

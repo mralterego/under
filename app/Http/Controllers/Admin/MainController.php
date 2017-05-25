@@ -12,6 +12,8 @@ use Carbon\Carbon;
 
 class MainController extends Controller
 {
+
+
     /**
      *  Загрузка галереи изображений
      */

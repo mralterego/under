@@ -4,9 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlacesTable extends Migration
+class CreatePostTable extends Migration
 {
-    public $table = 'places';
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public $table = 'posts';
     /**
      * Run the migrations.
      *
@@ -18,43 +23,33 @@ class CreatePlacesTable extends Migration
 
             $table->increments('id')->unique()->index();
 
-            //автор
+            //alias
             $table->string('alias')->nullable();
 
             //заголовок
             $table->text('title')->nullable();
 
             //содержание
-            $table->text('description')->nullable();
+            $table->text('content')->nullable();
 
-            //изображение ссылка
+            //изображение src
             $table->string('image')->nullable();
 
-            //ссылка на полное мероприятие
-            $table->text('worktime')->nullable();
+            //rubric
+            $table->string('rubric')->nullable();
 
-            //содержание
-            $table->text('coordinates')->nullable();
-
-            //ссылка на полное мероприятие
-            $table->text('address')->nullable();
-
-            //автор
-            $table->string('deputy')->nullable();
-
-            //айди галлереи
+            //айди галереи
             $table->string('gallery')->nullable();
 
-            //изображение ссылка
-            $table->string('site')->nullable();
+            //автор
+            $table->string('author')->nullable();
 
             //tags
             $table->json('tags')->nullable();
 
-            //оценившие и оцнеки
+            //rated persons
             $table->json('rating')->nullable();
 
-            //ссылка на полное мероприятие
             $table->boolean('published')->nullable();
 
             $table->timestamps();

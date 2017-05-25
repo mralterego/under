@@ -186,26 +186,5 @@ class EventsController extends Controller
 
     }
 
-    /**
-     *  Загрузка изображения
-     */
-    public function upload(Request $request)
-    {
-        if (Input::file()){
-            $extension = $request->image->extension();
-            $destinationPath = public_path().config('conf.dirs.events');
-            $name = rtrim(strtr(base64_encode($request->image->path()), '+/', '-_'), '=');
-            $img = time().'_'.$name.".".$extension;
-            $request->image->move($destinationPath, $img);
 
-            return response()->json([
-                "response" => config('conf.dirs.events').$img
-            ]);
-
-        } else {
-            return response()->json([
-                "response" => "There is no input file"
-            ]);
-        }
-    }
 }

@@ -54,8 +54,6 @@ var vm = new Vue({
             } else {
                 self.gallery = parseInt(self.gallery);
             }
-            console.log(self.site);
-            console.log(self.gallery);
             $.post(uri,
                 {
                     title: self.title,

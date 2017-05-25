@@ -74,10 +74,43 @@ Route::group(['prefix' => '/admin'], function(){
     Route::post('/places/upload', ['as' => 'admin.places.upload', 'uses' => 'Admin\PlacesController@upload']);
 
 
+    # Posts routes
+    Route::get('/posts/index', ['as' => 'admin.posts.index', 'uses' => 'Admin\PostsController@index']);
 
+    Route::get('/posts/{id}', ['as' => 'admin.posts.item', 'uses' => 'Admin\PostsController@item'])-> where('id', '[0-9]+');
+
+    Route::get('/posts/list', ['as' => 'admin.posts.list', 'uses' => 'Admin\PostsController@postsList']);
+
+    Route::get('/posts/api', ['as' => 'admin.posts.api', 'uses' => 'Admin\PostsController@api']);
+
+    Route::post('/posts/create', ['as' => 'admin.posts.create', 'uses' => 'Admin\PostsController@create']);
+
+    Route::post('/posts/update', ['as' => 'admin.posts.update', 'uses' => 'Admin\PostsController@update']);
+
+    Route::post('/posts/upload', ['as' => 'admin.posts.upload', 'uses' => 'Admin\PostsController@upload']);
+
+    # Collectives routes
+    Route::get('/collectives/index', ['as' => 'admin.collectives.index', 'uses' => 'Admin\CollectivesController@index']);
+
+    Route::get('/collectives/{id}', ['as' => 'admin.collectives.item', 'uses' => 'Admin\CollectivesController@item'])-> where('id', '[0-9]+');
+
+    Route::get('/collectives/list', ['as' => 'admin.collectives.list', 'uses' => 'Admin\CollectivesController@collectivesList']);
+
+    Route::get('/collectives/api', ['as' => 'admin.collectives.api', 'uses' => 'Admin\CollectivesController@api']);
+
+    Route::post('/collectives/create', ['as' => 'admin.collectives.create', 'uses' => 'Admin\CollectivesController@create']);
+
+    Route::post('/collectives/update', ['as' => 'admin.collectives.update', 'uses' => 'Admin\CollectivesController@update']);
+
+    Route::post('/collectives/upload', ['as' => 'admin.collectives.upload', 'uses' => 'Admin\CollectivesController@upload']);
+
+    /**
+     * !!!!Сделать множественную загрузку !!!!
+     **/
     Route::post('/gallery/upload', ['as' => 'admin.places.upload', 'uses' => 'Admin\MainController@galleryUpload']);
 
 });
+
 
 
 
