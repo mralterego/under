@@ -21,7 +21,7 @@ var vm = new Vue({
         create: function(){
             var self = this,
                 uri = "/admin/collectives/create",
-                deputy = "admin";
+                deputy = document.getElementById('username').innerHTML;
 
             $.post(uri,
                 {
