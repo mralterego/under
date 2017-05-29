@@ -32,7 +32,7 @@ class CollectivesController extends Controller
         $deputy = $request -> input('deputy');
         $place = $request -> input('place');
         $tags = json_encode(explode(",", $request->input('tags')));
-        $social = json_decode($request->input('social'));
+        $social = $request->input('social');
         $alias = trim(substr(CMS::rus2translit($name), 0, 100));
 
         # сохраняем новую новость в бд
@@ -45,7 +45,7 @@ class CollectivesController extends Controller
                 'deputy' => $deputy,
                 'image' => $image,
                 'tags' => $tags,
-                'social' => json_encode($social)
+                'social' => $social
             ];
 
         $out = Collective::create($item);
@@ -66,7 +66,7 @@ class CollectivesController extends Controller
         $deputy = $request -> input('deputy');
         $place = $request -> input('place');
         $tags = json_encode(explode(",", $request->input('tags')));
-        $social = json_decode($request->input('social'));
+        $social = $request->input('social');
         $alias = trim(substr(CMS::rus2translit($name), 0, 100));
 
         $out =  Collective::where('id', (int)($id))->update(
@@ -78,7 +78,7 @@ class CollectivesController extends Controller
                 'deputy' => $deputy,
                 'image' => $image,
                 'tags' => $tags,
-                'social' => json_encode($social)
+                'social' => $social
             ]
         );
 
@@ -105,8 +105,9 @@ class CollectivesController extends Controller
         $image = $collective_params[0]['image'];
         $deputy = $collective_params[0]['deputy'];
         $place = $collective_params[0]['place'];
-        $tags = implode(',',json_decode($collective_params[0]['tags']));
+        $tags = implode(',', $collective_params[0]['tags']);
         $social = $collective_params[0]['social'];
+        //$social = json_decode($social);
 
 
         # выводим
@@ -119,7 +120,9 @@ class CollectivesController extends Controller
                 'depute' => $deputy,
                 'place' => $place,
                 'tags' => $tags,
-                'social' => $social,
+                'vk' => $social['vk'],
+                'fb' => $social['fb'],
+                'sc' => $social['sc'],
             ]
         );
     }

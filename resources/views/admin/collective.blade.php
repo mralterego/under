@@ -13,6 +13,7 @@
 
 @section("vue")
     <script type="text/javascript" src="/front/admin/VueCollective.js"></script>
+
 @endsection
 
 @section("view")
