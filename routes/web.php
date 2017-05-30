@@ -105,13 +105,11 @@ Route::group(['prefix' => '/admin'], function(){
     Route::post('/collectives/upload', ['as' => 'admin.collectives.upload', 'uses' => 'Admin\CollectivesController@upload']);
 
     /**
-     * !!!!Сделать множественную загрузку !!!!
+     * !!!!todo:Сделать множественную загрузку !!!!
      **/
     Route::post('/gallery/upload', ['as' => 'admin.places.upload', 'uses' => 'Admin\MainController@galleryUpload']);
 
 });
-
-
 
 
 
@@ -120,3 +118,11 @@ Auth::routes();
 Route::get('/home', 'Admin\HomeController@index');
 
 Route::post('/home/update', 'Admin\HomeController@update');
+
+Route::group(['prefix' => '/user'], function(){
+
+    Route::get('/users',  [ 'as' => 'user.messages', 'uses' => 'User\MessagesController@users']);
+
+    Route::get('/messages',  [ 'as' => 'user.messages', 'uses' => 'User\MessagesController@messages']);
+
+});

@@ -28,11 +28,20 @@ class CreateMessagesTable extends Migration
             //получатель
             $table->string('getter')->nullable();
 
+            //айдишник места если не сообщение
+            $table->integer('fromPlace')->default(0);
+
+            //айдишник события если не сообщение
+            $table->integer('fromEvent')->default(0);
+
+            //айдишник поста если не сообщение
+            $table->integer('fromPost')->default(0);
+
             //комментарий ли
             $table->boolean('isComment')->default(false);
 
             //прочитан ли
-            $table->json('isRead')->default(false);
+            $table->boolean('isRead')->default(false);
 
             $table->timestamps();
         });

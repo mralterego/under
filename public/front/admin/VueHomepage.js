@@ -7,12 +7,18 @@ var vm = new Vue({
             fb: "",
             sc: "",
             site: "",
-        }
+        },
+        users: [],
+        showUsersField: false,
     },
     created: function () {
 
     },
     methods: {
+        openField: function(){
+            this.showUsersField = true;
+            console.log(this.showUsersField);
+        },
         update: function () {
             var uri = "/home/update";
             $.post(uri,

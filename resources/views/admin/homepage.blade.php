@@ -15,16 +15,19 @@
     <script type="text/javascript" src="/front/admin/VueHomepage.js"></script>
     <script type="text/javascript">
         Vue.nextTick(function (){
-            vm.social.vk = "{{ $vk }}";
-            vm.social.fb = "{{ $fb }}";
-            vm.social.sc = "{{ $sc }}";
-            vm.social.site = "{{ $site }}";
+            vm.social.vk = "{{ $social['vk'] }}";
+            vm.social.fb = "{{ $social['fb'] }}";
+            vm.social.sc = "{{ $social['sc'] }}";
+            vm.social.site = "{{ $social['site'] }}";
+            $(".button-collapse").sideNav();
         });
     </script>
 @endsection
 
 @section("view")
     <div id="homepage" class="container">
+
+
         <div class="row">
             <div class="col s12">
                 <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl ">
@@ -115,5 +118,38 @@
                 </div>
             </div>
         </div>
+
+        <!---left menu--->
+        <ul id="slide-out" class="side-nav">
+            <li><div class="userView">
+                    <div class="background">
+                        <img src="images/office.jpg">
+                    </div>
+                    <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
+                    <a href="#!name"><span class="black-text name">{{ Auth::user()->name }}</span></a>
+                    <a href="#!email"><span class="black-text email">{{ Auth::user()->email }}</span></a>
+                </div></li>
+            <li v-on:click="openField" ><a href="#!"><i class="material-icons">chat</i>Написать сообщение</a></li>
+            <li v-if="showUsersField" class="__padding-left_xl __padding-right_xl">
+                <div class="input-group">
+                    <div class="input-field user-search">
+                        <input type="text">
+                        <label>кому</label>
+                    </div>
+                </div>
+                <ul class="__select_users">
+                    <li><a href="#!">Серега</a></li>
+                    <li><a href="#!">Петр</a></li>
+                    <li><a href="#!">Вася</a></li>
+                    <li><a href="#!">Лаврентий</a></li>
+                </ul>
+            </li>
+            <li><a href="#!">Second Link</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">Subheader</a></li>
+            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        </ul>
+        <!---left menu--->
+
     </div>
 @endsection

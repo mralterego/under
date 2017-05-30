@@ -25,6 +25,26 @@ table.__left > thead> tr > th.__left{
 .__test-size{
     font-size: 10px;
 }
+.__menu_item{
+    min-height: 64px;
+    min-width: 64px;
+}
+body nav .__menu_item > a {
+    display: block;
+}
+
+.user-search.input-field label.active {
+    font-size: 0.8rem;
+    -webkit-transform: translateY(-80%);
+    transform: translateY(-80%);
+}
+.input-field.user-search{
+    margin-top: 0px;
+}
+.__select_users{
+    max-height: 300px;
+    overflow-y: scroll;
+}
 
 .bad-link{
     color: white;

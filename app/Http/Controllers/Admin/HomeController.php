@@ -27,13 +27,10 @@ class HomeController extends Controller
     public function index()
     {
         $social = Auth::user()->social;
-        $social_items = json_decode($social);
+        $social_items = json_decode($social, true);
+
         return view('admin.homepage', [
-            'social' => $social,
-            'site' => $social_items->site,
-            'vk' => $social_items->vk,
-            'fb' => $social_items->fb,
-            'sc' => $social_items->sc,
+            'social' => $social_items,
         ]);
     }
 

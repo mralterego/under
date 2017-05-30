@@ -24,7 +24,10 @@
                     <li><a href="{{ route('login') }}">Войти</a></li>
                     <li><a href="{{ route('register') }}">Зарегистрироваться</a></li>
                 @else
-                         <li>Вы вошли как: <span id="username">{{ Auth::user()->name }}</span> </li>
+                        <li>Вы вошли как: <span id="username">{{ Auth::user()->name }}</span> </li>
+
+                        @include('include._left_menu')
+
                     @if (Auth::user()->role == 5)
                         <li>
                             <a class="dropdown-button" href="#!" data-activates="posts">Записи<i class="material-icons right">arrow_drop_down</i></a>

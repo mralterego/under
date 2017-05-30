@@ -18,7 +18,7 @@ class Message extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'content', 'author', 'getter', 'isComment', 'isRead',
+        'content', 'author', 'getter', 'isComment', 'isRead', 'fromEvent', 'fromPost', 'fromPlace',
     ];
 
 
