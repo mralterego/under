@@ -16,6 +16,19 @@ table.__left > thead> tr > th.__left{
     min-height: 745px;
 }
 
+body nav .button-collapse{
+    margin: 0px;
+}
+.__menu_messages a{
+    height: 64px;
+}
+.__menu_messages a i {
+    display: inline-block;
+}
+.__menu_messages a .new.badge {
+    margin-bottom: 14px;
+    vertical-align: middle;
+}
 .__width_960{
     min-width: 960px;
 }
@@ -26,8 +39,7 @@ table.__left > thead> tr > th.__left{
     font-size: 10px;
 }
 .__menu_item{
-    min-height: 64px;
-    min-width: 64px;
+
 }
 body nav .__menu_item > a {
     display: block;
@@ -35,18 +47,21 @@ body nav .__menu_item > a {
 
 .user-search.input-field label.active {
     font-size: 0.8rem;
-    -webkit-transform: translateY(-80%);
-    transform: translateY(-80%);
+    -webkit-transform: translateY(-70%);
+    transform: translateY(-70%);
 }
-.input-field.user-search{
+.input-field.user-search {
     margin-top: 0px;
 }
-.__select_users{
+.__select_users {
+    margin-top: -12px;
     max-height: 300px;
+}
+.__overflow_y {
     overflow-y: scroll;
 }
 
-.bad-link{
+.bad-link {
     color: white;
     background-color: #e85934;
     padding: 2px 7px;
@@ -111,6 +126,10 @@ input.small-input{
 input.__input_image{
     float: right;
     width: 90%;
+}
+
+.side-nav .divider {
+    margin: 8px 0 8px 0;
 }
 
 .accept-block{

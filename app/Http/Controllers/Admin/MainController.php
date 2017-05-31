@@ -15,7 +15,7 @@ class MainController extends Controller
 
 
     /**
-     *  Загрузка галереи изображений
+     *  todo:Загрузка галереи изображений
      */
     public function galleryUpload(Request $request)
     {

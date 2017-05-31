@@ -121,8 +121,16 @@ Route::post('/home/update', 'Admin\HomeController@update');
 
 Route::group(['prefix' => '/user'], function(){
 
-    Route::get('/users',  [ 'as' => 'user.messages', 'uses' => 'User\MessagesController@users']);
+    Route::get('/users',  [ 'as' => 'user.users', 'uses' => 'User\UsersController@users']);
 
-    Route::get('/messages',  [ 'as' => 'user.messages', 'uses' => 'User\MessagesController@messages']);
+    Route::get('/search',  [ 'as' => 'user.search', 'uses' => 'User\UsersController@search']);
+
+    Route::get('/messages',  [ 'as' => 'user.messages', 'uses' => 'User\UsersController@messages']);
+
+});
+
+Route::group(['prefix' => '/messages'], function(){
+
+    Route::post('/create', [ 'as' => 'messages.create', 'uses' => 'User\MessagesController@create' ]);
 
 });
