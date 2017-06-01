@@ -33,6 +33,21 @@ class MessagesController extends Controller
             'response' => $out
         ]);
     }
+    public function setRead(Request $request)
+    {
+        $author = "";
+        $out = "";
+        if (Auth::user()){
+            $author = $request->input('author');
+            $out =  Message::where('author', $author)->where('getter', Auth::user()->name)->update([
+                "isRead" => true
+            ]);
+         }
+
+        return response()->json([
+            "response" => $out
+        ]);
+    }
 
     public function messages(Request $request)
     {

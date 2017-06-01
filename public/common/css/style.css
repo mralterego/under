@@ -18,7 +18,20 @@ table.__left > thead> tr > th.__left{
 
 body nav .button-collapse{
     margin: 0px;
+
 }
+p.__message {
+    display: block;
+    line-height: 30px;
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+.senders{
+    position:relative;
+}
+
 .__menu_messages a{
     height: 64px;
 }

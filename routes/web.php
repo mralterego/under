@@ -133,4 +133,6 @@ Route::group(['prefix' => '/messages'], function(){
 
     Route::post('/create', [ 'as' => 'messages.create', 'uses' => 'User\MessagesController@create' ]);
 
+    Route::post('/read', [ 'as' => 'messages.read', 'uses' => 'User\MessagesController@setRead' ]);
+
 });
