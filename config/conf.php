@@ -8,5 +8,6 @@ return [
         'galleries' => '/images/gallery/',
         'posts' => '/images/posts/',
         'collectives' => '/images/collectives/',
+        'avatars' => '/images/avatars/',
     ],
 ];

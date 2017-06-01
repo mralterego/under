@@ -104,6 +104,7 @@ Route::group(['prefix' => '/admin'], function(){
 
     Route::post('/collectives/upload', ['as' => 'admin.collectives.upload', 'uses' => 'Admin\CollectivesController@upload']);
 
+
     /**
      * !!!!todo:Сделать множественную загрузку !!!!
      **/
@@ -126,6 +127,10 @@ Route::group(['prefix' => '/user'], function(){
     Route::get('/search',  [ 'as' => 'user.search', 'uses' => 'User\UsersController@search']);
 
     Route::get('/messages',  [ 'as' => 'user.messages', 'uses' => 'User\UsersController@messages']);
+
+    Route::post('/avatars/update', ['as' => 'user.avatars.update', 'uses' => 'User\UsersController@updateImage']);
+
+    Route::post('/avatars/upload', ['as' => 'user.avatars.upload', 'uses' => 'User\UsersController@upload']);
 });
 
 Route::group(['prefix' => '/messages'], function(){

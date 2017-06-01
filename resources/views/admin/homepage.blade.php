@@ -18,12 +18,13 @@
         Vue.nextTick(function (){
             vm.author.id = "{{ $id }}";
             vm.author.name = "{{ $name }}";
+            vm.author.avatar = "{{ $avatar }}";
             vm.social.vk = "{{ $social['vk'] }}";
             vm.social.fb = "{{ $social['fb'] }}";
             vm.social.sc = "{{ $social['sc'] }}";
             vm.social.site = "{{ $social['site'] }}";
-            $(".button-collapse").sideNav();
 
+            $(".button-collapse").sideNav();
             //инит диалога из левой панели
             $('#message_window').modal();
 
@@ -36,7 +37,7 @@
 @section("view")
     <div id="homepage" class="container">
         <div class="row">
-            <div class="col s12">
+            <div class="col s8">
                 <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl ">
                     @if ($social == null)
                         <div class="row">
@@ -45,25 +46,25 @@
                                     <div class="card-content black-text">
                                         <span class="card-title">&nbsp;&nbsp;Заполните свой профиль</span>
                                         <div class="input-group">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s6">
                                                 <input type="text" v-model="social.site">
                                                 <label class="active">сайт</label>
                                             </div>
                                         </div>
                                         <div class="input-group">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s6">
                                                 <input type="text"  v-model="social.vk" >
                                                 <label class="active">vk</label>
                                             </div>
                                         </div>
                                         <div class="input-group">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s6">
                                                 <input type="text" v-model="social.fb" >
                                                 <label class="active">facebook</label>
                                             </div>
                                         </div>
                                         <div class="input-group">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s6">
                                                 <input type="text" v-model="social.sc">
                                                 <label class="active">soundcloud</label>
                                             </div>
@@ -81,25 +82,25 @@
                                     <div class="card-content black-text">
                                         <span class="card-title">&nbsp;&nbsp;Социальные ссылки</span>
                                         <div class="input-group">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s6">
                                                 <input type="text" v-model="social.site">
                                                 <label class="active">сайт</label>
                                             </div>
                                         </div>
                                         <div class="input-group">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s6">
                                                 <input type="text"  v-model="social.vk" >
                                                 <label class="active">vk</label>
                                             </div>
                                         </div>
                                         <div class="input-group">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s6">
                                                 <input type="text" v-model="social.fb" >
                                                 <label class="active">facebook</label>
                                             </div>
                                         </div>
                                         <div class="input-group">
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s6">
                                                 <input type="text" v-model="social.sc">
                                                 <label class="active">soundcloud</label>
                                             </div>
@@ -122,7 +123,40 @@
                         </div>
                 </div>
             </div>
-        </div>
+
+            <div class="col s4">
+                <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl ">
+                    <div class="row">
+                        <div class="card-content black-text">
+                            <span class="card-title">&nbsp;&nbsp;&nbsp;Формат 1х1</span>
+                            <div class="input-group">
+                                <div class="file-field input-field col s12">
+                                    <div class="btn">
+                                        <span>Загрузить аватар</span>
+                                        <input type="file" name="image"  accept="image/*"  v-on:change="uploadImage($event)">
+                                    </div>
+                                </div>
+                                <div class="file-field input-field col s12">
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" v-bind:value="author.avatar">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-group" v-if="showAvatar">
+                                <div class="file-field input-field col s12">
+                                    <img class="responsive-img circle" v-bind:src="author.avatar">
+                                </div>
+                            </div>
+                            <a  v-if="showAvatar" class="right waves-effect waves-light btn-large  __margin-left_l" v-on:click="updateImage">
+                                &nbsp;&nbsp;Сохранить
+                                <i class="material-icons right dp48">note_add</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </idv>
 
     @if (Auth::user())
         <!---left menu--->
@@ -131,7 +165,7 @@
                     <div class="background">
                         <img src="images/office.jpg">
                     </div>
-                    <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
+                    <a href="#!user"><img class="circle" v-bind:src="author.avatar"></a>
                     <a href="#!name"><span class="black-text name">{{ Auth::user()->name }}</span></a>
                     <a href="#!email"><span class="black-text email">{{ Auth::user()->email }}</span></a>
                 </div>
@@ -167,7 +201,7 @@
                     </li>
                     <li>
                         <a class="dropdown-button waves-effect" href="#!" data-activates="places">
-                            <i class="material-icons right">store_mall_directory</i>
+                            <i class="material-icons">store_mall_directory</i>
                             Места
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>

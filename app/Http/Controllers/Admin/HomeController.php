@@ -33,6 +33,7 @@ class HomeController extends Controller
         return view('admin.homepage', [
             'id' => Auth::user()->id,
             'name' => Auth::user()->name,
+            'avatar' => Auth::user()->avatar,
             'social' => $social_items,
         ]);
     }
@@ -49,4 +50,6 @@ class HomeController extends Controller
             "response" => $out
         ]);
     }
+
+
 }

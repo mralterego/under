@@ -16,8 +16,10 @@ var vm = new Vue({
             sc: "",
             site: "",
         },
+        avatar: "",
         message: "",
         users: [],
+        showAvatar: false,
         getMessage: false,
         showUsersField: false,
         showScroll: false,
@@ -114,7 +116,49 @@ var vm = new Vue({
                             console.log(error);
                         });
                 }
+        },
+        updateImage: function(){
+            var self = this,
+                uri = "/user/avatars/update";
+            $.post(uri, {
+                id: self.author.id,
+                avatar: self.avatar,
 
-        }
+               })
+                .done(function(data){
+                    console.log(data.response);
+
+                })
+                .fail(function(error) {
+                    console.log(error);
+                });
+
+        },
+        uploadImage: function(event){
+            var self = this,
+                uri = '/user/avatars/upload';
+
+            var formdata = new FormData();
+            formdata.append("image", event.target.files[0]);
+
+            if (event.target.files.length > 0){
+                $.ajax({
+                    url: uri,
+                    data: formdata,
+                    type: "POST",
+                    dataType: "json",
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        self.avatar = data.response;
+                        self.showAvatar = true;
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            }
+        },
     }
 });

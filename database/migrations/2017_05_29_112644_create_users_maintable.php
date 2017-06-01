@@ -18,6 +18,7 @@ class CreateUsersMaintable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('avatar')->nullable();
             $table->integer('role')->default(1);
             $table->string('status')->nullable();
             $table->string('phone')->nullable();

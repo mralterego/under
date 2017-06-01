@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use App\Models\User;
 use App\Models\Message;
 
@@ -45,6 +46,45 @@ class UsersController extends Controller
         return response()->json([
             "response" => $message
         ]);
+    }
+
+    public function updateImage(Request $request)
+    {
+        $this->validate($request, [
+            "id" => "filled|required",
+            "avatar" => "filled|required",
+        ]);
+        $id = $request->input('id');
+        $avatar = $request->input('avatar');
+        # сохраняем новую новость в бд
+        $out =  User::where('id', (int)($id))->update([
+            'avatar' => $avatar,
+        ]);
+        return response()->json([
+            "response" => $out
+        ]);
+    }
+    /**
+     *  Загрузка изображения
+     */
+    public function upload(Request $request)
+    {
+        if (Input::file()){
+            $extension = $request->image->extension();
+            $destinationPath = public_path().config('conf.dirs.avatars');
+            $name = rtrim(strtr(base64_encode($request->image->path()), '+/', '-_'), '=');
+            $img = time().'_'.$name.".".$extension;
+            $request->image->move($destinationPath, $img);
+
+            return response()->json([
+                "response" => config('conf.dirs.avatars').$img
+            ]);
+
+        } else {
+            return response()->json([
+                "response" => "There is no input file"
+            ]);
+        }
     }
 
 }
