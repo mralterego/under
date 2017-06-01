@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col s4 __border_right">
                     <div class="senders">
-                        <div class="collection">
+                        <div v-if="showSenders" class="collection">
                             <a v-on:click="openMessages(author.id, author.name)" href="#!" class="collection-item" v-for="author in authors">@{{ author.name }}<span class="badge right new ">@{{ author.count }}</span></a>
                         </div>
                     </div>
