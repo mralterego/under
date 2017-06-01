@@ -126,7 +126,6 @@ Route::group(['prefix' => '/user'], function(){
     Route::get('/search',  [ 'as' => 'user.search', 'uses' => 'User\UsersController@search']);
 
     Route::get('/messages',  [ 'as' => 'user.messages', 'uses' => 'User\UsersController@messages']);
-
 });
 
 Route::group(['prefix' => '/messages'], function(){
@@ -134,5 +133,11 @@ Route::group(['prefix' => '/messages'], function(){
     Route::post('/create', [ 'as' => 'messages.create', 'uses' => 'User\MessagesController@create' ]);
 
     Route::post('/read', [ 'as' => 'messages.read', 'uses' => 'User\MessagesController@setRead' ]);
+
+});
+
+Route::group(['prefix' => '/rubric'], function(){
+
+    Route::get('/{rubric}/{id}',  [ 'uses' => 'Main\MainController@rubricItem']);
 
 });

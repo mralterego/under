@@ -16,12 +16,10 @@ Vue.component('message',{
     },
     created: function(){
         this.getUnreadMessages();
-
     },
     updated: function(){
         var self = this;
         wrapperVm.$on('read', function(){
-            console.log("hi");
             self.getUnreadMessages();
         })
     },
