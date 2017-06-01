@@ -125,22 +125,23 @@
             </div>
 
             <div class="col s4">
-                <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl ">
+                <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl __padding-bottom_xs">
                     <div class="row">
-                        <div class="card-content black-text">
+                        <div class="card-content black-text ">
                             <span class="card-title">&nbsp;&nbsp;&nbsp;Формат 1х1</span>
-                            <div class="input-group">
-                                <div class="file-field input-field col s12">
-                                    <div class="btn">
-                                        <span>Загрузить аватар</span>
-                                        <input type="file" name="image"  accept="image/*"  v-on:change="uploadImage($event)">
-                                    </div>
-                                </div>
+                            <div class="input-group ">
                                 <div class="file-field input-field col s12">
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" v-bind:value="author.avatar">
                                     </div>
                                 </div>
+                                <div class="file-field input-field col s12">
+                                    <div class="btn right">
+                                        <span>Загрузить аватар</span>
+                                        <input type="file" name="image"  accept="image/*"  v-on:change="uploadImage($event)">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="input-group" v-if="showAvatar">
