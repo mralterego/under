@@ -14,3 +14,7 @@
     <li><a href="{{ route('admin.collectives.index') }}">Создать</a></li>
     <li><a href="{{ route('admin.collectives.list') }}">Список</a></li>
 </ul>
+<ul id="albums" class="dropdown-content">
+    <li><a href="{{ route('admin.albums.index') }}">Создать</a></li>
+    <li><a href="{{ route('admin.albums.list') }}">Список</a></li>
+</ul>

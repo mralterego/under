@@ -195,6 +195,13 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-button waves-effect" href="#!" data-activates="music">
+                            <i class="material-icons">library_music</i>
+                            Альбом
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-button waves-effect" href="#!" data-activates="events">
                             <i class="material-icons">event</i>
                             События
@@ -256,6 +263,13 @@
                         <a class="dropdown-button waves-effect" href="#!" data-activates="posts">
                             <i class="material-icons">description</i>
                             Записи
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-button waves-effect" href="#!" data-activates="music">
+                            <i class="material-icons">library_music</i>
+                            Альбом
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
                     </li>

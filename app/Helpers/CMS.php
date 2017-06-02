@@ -108,9 +108,12 @@ class CMS
     public static function createDir($dir)
     {
         $result = false;
-
+        $user_name = "almenar";
         if (!is_dir($dir)){
-           $result = mkdir($dir, 755);
+            $result = mkdir($dir, 0755);
+            chown($dir, $user_name);
+        } else {
+            $result = true;
         }
         return $result;
     }

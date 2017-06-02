@@ -9,5 +9,7 @@ return [
         'posts' => '/images/posts/',
         'collectives' => '/images/collectives/',
         'avatars' => '/images/avatars/',
+        'albums' => '/images/albums/',
+        'audio' => '/audio/albums/',
     ],
 ];

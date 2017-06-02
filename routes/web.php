@@ -104,6 +104,22 @@ Route::group(['prefix' => '/admin'], function(){
 
     Route::post('/collectives/upload', ['as' => 'admin.collectives.upload', 'uses' => 'Admin\CollectivesController@upload']);
 
+    # Albums routes
+    Route::get('/albums/index', ['as' => 'admin.albums.index', 'uses' => 'Admin\AlbumController@index']);
+
+    Route::get('/albums/{id}', ['as' => 'admin.albums.item', 'uses' => 'Admin\AlbumController@item'])-> where('id', '[0-9]+');
+
+    Route::get('/albums/list', ['as' => 'admin.albums.list', 'uses' => 'Admin\AlbumController@albumsList']);
+
+    Route::get('/albums/api', ['as' => 'admin.albums.api', 'uses' => 'Admin\AlbumController@api']);
+
+    Route::post('/albums/create', ['as' => 'admin.albums.create', 'uses' => 'Admin\AlbumController@create']);
+
+    Route::post('/albums/update', ['as' => 'admin.albums.update', 'uses' => 'Admin\AlbumController@update']);
+
+    Route::post('/albums/upload', ['as' => 'admin.albums.upload', 'uses' => 'Admin\AlbumController@upload']);
+
+    Route::post('/albums/audio', ['as' => 'admin.albums.audio', 'uses' => 'Admin\AlbumController@uploadAudio']);
 
     /**
      * !!!!todo:Сделать множественную загрузку !!!!
