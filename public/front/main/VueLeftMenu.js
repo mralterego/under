@@ -71,6 +71,7 @@ var vm = new Vue({
         successAction: function(message){
             Materialize.toast(message, 4000);
         },
+        
         checkHeight: function(classname){
             var field = document.querySelectorAll(classname)[0];
             var height = field.offsetHeight;
@@ -85,7 +86,7 @@ var vm = new Vue({
             if (height >  298){
                 self.showScroll = true;
             }
-            
+
             if (keyword.length > 2){
                 self.users = [];
                 $.get(uri, {
