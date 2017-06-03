@@ -68,10 +68,11 @@ var vm = new Vue({
                 });
 
         },
+        
         successAction: function(message){
             Materialize.toast(message, 4000);
         },
-        
+
         checkHeight: function(classname){
             var field = document.querySelectorAll(classname)[0];
             var height = field.offsetHeight;
