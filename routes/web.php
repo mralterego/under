@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Main\MainController@index');
 
 Route::get('login/vk', 'Social\VkController@redirectToProvider');
 Route::get('login/vk/callback', 'Social\VkController@handleProviderCallback');
@@ -121,13 +119,20 @@ Route::group(['prefix' => '/admin'], function(){
 
     Route::post('/albums/audio', ['as' => 'admin.albums.audio', 'uses' => 'Admin\AlbumController@uploadAudio']);
 
+    # Rubric routes
+    Route::get('/rubric/index', ['as' => 'admin.rubric.index', 'uses' => 'Admin\RubricController@index']);
+
+    Route::get('/rubric/api', ['as' => 'admin.rubric.api', 'uses' => 'Admin\RubricController@api']);
+
+    Route::post('/rubric/create', ['as' => 'admin.rubric.create', 'uses' => 'Admin\RubricController@create']);
+
+    Route::post('/rubric/remove', ['as' => 'admin.rubric.remove', 'uses' => 'Admin\RubricController@remove']);
     /**
      * !!!!todo:Сделать множественную загрузку !!!!
      **/
     Route::post('/gallery/upload', ['as' => 'admin.places.upload', 'uses' => 'Admin\MainController@galleryUpload']);
 
 });
-
 
 
 Auth::routes();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Helpers\CMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use Carbon\Carbon;
 
@@ -39,7 +40,7 @@ class PostsController extends Controller
         $image = $post_params[0]['image'];
         $gallery = $post_params[0]['gallery'];
         $rubric = $post_params[0]['rubric'];
-        $tags = implode(',', $post_params[0]['tags']);
+        $tags = $post_params[0]['tags'];
         $published = $post_params[0]['published'];
 
         # убираем лишнее из контента, иначе сломается
@@ -75,7 +76,6 @@ class PostsController extends Controller
         $this->validate($request, [
             "title" => "filled|required",
             "image" => "filled|required",
-            "author" => "filled|required",
             "rubric" => "filled|required",
             "gallery" => "filled|required",
             "content" => "filled",
@@ -88,9 +88,9 @@ class PostsController extends Controller
         $image = $request -> input('image');
         $rubric = $request -> input('rubric');
         $content = $request -> input('content');
-        $author = $request -> input('author');
+        $author = Auth::user()->name;
         $gallery = $request -> input('gallery');
-        $tags = json_encode(explode(",", $request->input('tags')));
+        $tags = $request -> input('tags');
         $published = $request -> input('published') === "true" ? true : false;
         $rating = [];
 
@@ -139,13 +139,13 @@ class PostsController extends Controller
          **/
 
         # входные параметры для создания события
+        $author = Auth::user()->name;
         $id = $request -> input('id');
         $title = $request -> input('title');
         $image = $request -> input('image');
         $rubric = $request -> input('rubric');
-        $author = $request -> input('author');
         $gallery = $request -> input('gallery');
-        $tags = json_encode(explode(",", $request->input('tags')));
+        $tags = $request->input('tags');
         $rating = [];
 
         $alias = trim(substr(CMS::rus2translit($title), 0, 100));

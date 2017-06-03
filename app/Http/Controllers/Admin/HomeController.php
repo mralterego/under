@@ -29,7 +29,6 @@ class HomeController extends Controller
     {
         $social = Auth::user()->social;
         $social_items = json_decode($social, true);
-        $messages = Message::where('getter', 'LIKE', '%'.Auth::user()->name.'%')->where('isComment', false)->where('isRead', false)->orderBy('created_at', 'desc')->get();
         return view('admin.homepage', [
             'id' => Auth::user()->id,
             'name' => Auth::user()->name,

@@ -38,7 +38,13 @@ body nav .button-collapse{
     margin-left: 15px;
     margin-top: 4px;
 }
-
+.controls{
+    position: absolute;
+    right: 10px;
+}
+.file-field.input-field{
+    margin-top: 0px;
+}
 
 p.__message {
     display: block;
@@ -83,11 +89,20 @@ body nav .__menu_item > a {
     -webkit-transform: translateY(-70%);
     transform: translateY(-70%);
 }
+
+.__dialog-field .input-field label.active {
+    font-size: 0.8rem;
+    -webkit-transform: translateY(-30%);
+    transform: translateY(-30%);
+}
 .input-field.user-search {
     margin-top: 0px;
 }
-.__select_users {
+.__select_users{
     margin-top: -12px;
+    max-height: 300px;
+}
+.__usersfield {
     max-height: 300px;
 }
 .__overflow_y {
@@ -100,6 +115,22 @@ body nav .__menu_item > a {
     padding: 2px 7px;
     border-radius: 7px;
 }
+
+.modal.__modal{
+    background-color: #fafafa;
+    padding: 0;
+    max-height: 70% !important;
+    width: 55% !important;
+    top: 17% !important;
+    margin: auto;
+    overflow-y: auto;
+    max-width: none;
+    border-radius: 2px;
+    will-change: top, opacity;
+    transform: translate(0%, 0%) !important;
+    -webkit-transform: translate(0%, 0%) !important;
+}
+
 .overlay{
     background-color: black;
     opacity: 0.5;
@@ -125,6 +156,22 @@ body nav .__menu_item > a {
     transition: 1.2s ease;
 }
 
+#message_window .modal-footer a {
+    font-size: 1rem;
+    color: #fff;
+    display: block;
+    padding: 0 15px;
+    margin-top: 15px;
+}
+
+#left_message_window .modal-footer a {
+    font-size: 1rem;
+    color: #fff;
+    display: block;
+    padding: 0 15px;
+    margin-top: 15px;
+}
+
 .__width_70{
     width: 70%;
 }
@@ -135,11 +182,21 @@ body nav .__menu_item > a {
     opacity: 0;
 }
 
-.modal-close{
+.__close-btn{
     position: absolute;
     right: 8px;
     top: 5px;
     cursor: pointer;
+}
+.__close-btn:hover{
+    background-color: white;
+}
+
+.__close-btn{
+    font-size: 1rem;
+    color: #fff;
+    display: block;
+    padding: 0 15px;
 }
 .modal-close span{
     font-size: 25px;

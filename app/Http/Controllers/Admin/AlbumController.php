@@ -20,7 +20,7 @@ class AlbumController extends Controller
 
     public function albumsList()
     {
-
+        return view('admin.albums_list');
     }
 
     public function item($id)
@@ -35,12 +35,24 @@ class AlbumController extends Controller
         # забираем массив параметров событий
         $album_params = Album::where('id', $id) -> get();
 
-        $audio = json_decode($album_params[0]['audio'], true);
-        $tags = json_decode($album_params[0]['tags'], true);
- 
-        return response()->json([
-            "response" => $audio
-        ]);
+        $title = $album_params[0]['title'];
+        $description = $album_params[0]['description'];
+        $poster = $album_params[0]['poster'];
+        $published = $album_params[0]['published'];
+        $audio = $album_params[0]['audio'];
+        $tags = $album_params[0]['tags'];
+     
+        return view('admin.albums_item',
+            [
+                'id' => $id,
+                'title' => $title,
+                'description' => $description,
+                'poster' => $poster,
+                'audio' => $audio,
+                'tags' => $tags,
+                'published' => $published
+            ]
+        );
 
     }
 
@@ -77,9 +89,47 @@ class AlbumController extends Controller
         ]);
 
     }
-    public function update()
+    public function update(Request $request)
     {
+        $this->validate($request, [
+            "id" => "filled|required",
+            "title" => "filled|required",
+            "description" => "filled|required",
+            "poster" => "filled|required",
+            "audio" => "filled",
+            "tags" => "filled",
+            "published" => "filled",
+        ]);
+        $id = $request->input('id');
+        $title = trim(strip_tags($request -> input('title')));
+        $description = $request -> input('description');
+        $poster = $request -> input('poster');
+        $tags = $request->input('tags');
+        $audio = $request->input('audio');
+        $published = $request -> input('published') === "true" ? true : false;
 
+        $out = Album::where('id', (int)($id))->update([
+            "title" => $title,
+            "description" => $description,
+            "poster" => $poster,
+            "tags" => $tags,
+            "author" => Auth::user()->name,
+            "audio" => $audio,
+            "published" => $published,
+        ]);
+        return response()->json([
+            "response" => $out
+        ]);
+
+    }
+
+    public function api()
+    {
+        $albums = Album::where('author', Auth::user()->name)->get();
+
+        return response()->json([
+            'response' => $albums
+        ]);
     }
 
     public function uploadAudio(Request $request)

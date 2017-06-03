@@ -42,8 +42,11 @@
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s6">
-                                            <input type="text" v-model="rubric">
-                                            <label class="active">Рубрика</label>
+                                            <select id="select-hidden" >
+                                                <option value="" disabled selected>Выберите рубрику</option>
+                                                <option v-for="item in rubrics" :value="item.alias">@{{ item.name }}</option>
+                                            </select>
+
                                         </div>
                                     </div>
                                     <div class="input-group">

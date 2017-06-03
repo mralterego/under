@@ -59,26 +59,29 @@
                             <div class="row">
                                 <div class="card-content black-text">
                                     <div class="input-group">
-                                        <div class="file-field input-field col s4">
-                                            <div class="btn">
-                                                <span>Загрузить аудиофайл</span>
-                                                <input type="file" name="audio" accept="audio/*" enctype="multipart/form-data"  v-on:change="uploadAudio($event)">
+                                        <div class="col s9">
+                                            <div v-if="showAudio">
+                                                <div v-for="item in audio" class="audio_file">
+                                                    <i class="material-icons left music_icon">music_video</i>
+                                                    <p class="audio_name left">@{{ item.name }}</p>
+                                                    <audio class="right controls" controls="">
+                                                        <source :src="item.path" type="audio/mpeg">
+                                                        Тег audio не поддерживается вашим браузером.
+                                                        <a :href="item.path">Скачайте музыку</a>.
+                                                    </audio>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="input-group">
-                                        <div  v-if="showAudio" class="col s8">
-                                           <div v-for="item in audio" class="audio_file">
-                                               <i class="material-icons left music_icon">music_video</i>
-                                               <p class="audio_name left">@{{ item.name }}</p>
-                                               <audio class="right" controls="">
-                                                   <source :src="item.path" type="audio/mpeg">
-                                                   Тег audio не поддерживается вашим браузером.
-                                                   <a :href="item.path">Скачайте музыку</a>.
-                                               </audio>
-                                           </div>
+                                        <div class="file-field input-field col s3">
+                                            <div class="btn right __margin-top_xl">
+                                                <span>Загрузить аудиo</span>
+                                                <input type="file" name="audio" accept="audio/*" enctype="multipart/form-data"  v-on:change="uploadAudio($event)">
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

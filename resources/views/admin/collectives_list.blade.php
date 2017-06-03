@@ -30,7 +30,7 @@
                     <tbody>
                     <template v-for="(item, key) in items" >
                         <tr class="hovered-row"  :id="key + '_' + item.id">
-                            <td><a :href="'/admin/posts/' + item.id" target="_blank">id@{{ item.id }}</a></td>
+                            <td><a :href="'/admin/collectives/' + item.id" target="_blank">id@{{ item.id }}</a></td>
                             <td class="__width_850">@{{item.name}}</td>
                             <td>@{{ item.tags }}</td>
                         </tr>

@@ -42,6 +42,8 @@ var vm = new Vue({
                 })
                 .done(function(data) {
                     console.log(data.response);
+                    this.successAction("Обновлено!");
+
                 })
                 .fail(function(error) {
                     console.log(error);
@@ -83,12 +85,15 @@ var vm = new Vue({
                     })
                     .done(function(data){
                         console.log(data.response);
+                        self.successAction("Cообщение отправлено!");
                     })
                     .fail(function(error) {
                         console.log(error);
                     });
 
-
+        },
+        successAction: function(message){
+            Materialize.toast(message, 4000);
         },
         checkHeight: function(classname){
             var field = document.querySelectorAll(classname)[0];
@@ -127,7 +132,7 @@ var vm = new Vue({
                })
                 .done(function(data){
                     console.log(data.response);
-
+                    self.successAction("Обновлено!");
                 })
                 .fail(function(error) {
                     console.log(error);

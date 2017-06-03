@@ -1,4 +1,6 @@
-<li class="__menu_item"><a title="Меню" href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a></li>
+<li class="__menu_item">
+    <a title="Меню" href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+</li>
 <li class="__menu_messages">
     <message v-on:dialog="openDialog"></message>
 </li>

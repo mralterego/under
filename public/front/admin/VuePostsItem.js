@@ -18,8 +18,7 @@ var vm = new Vue({
         update: function(){
             var self = this,
                 content = editor.getData(),
-                uri = "/admin/posts/update",
-                author = "admin";
+                uri = "/admin/posts/update";
 
             if (self.gallery == ""){
                 self.gallery = 0;
@@ -33,15 +32,15 @@ var vm = new Vue({
                     title: self.title,
                     place: self.place,
                     image: self.image,
-                    tags: self.tags,
+                    tags: JSON.stringify(self.tags),
                     rubric: self.rubric,
                     gallery: self.gallery,
-                    author: author,
                     content: content,
                     published: self.published
                 })
                 .done(function(data) {
                     console.log(data.response);
+                    self.successAction("Обновлено!");
                 })
                 .fail(function(error) {
                     console.log(error);
@@ -59,6 +58,9 @@ var vm = new Vue({
                 date = splited[2] + "-"  + splited[1]+ "-" + splited[0];
                 return date;
             }
+        },
+        successAction: function(message){
+            Materialize.toast(message, 4000);
         },
         uploadImage: function(event){
             var self = this,

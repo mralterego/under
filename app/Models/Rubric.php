@@ -15,10 +15,10 @@ class Rubric extends Model
 
     public $incrementing = true;
 
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
-        'alias', 'name',
+         'name', 'alias',
     ];
 
     /**

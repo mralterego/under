@@ -32,7 +32,7 @@
             vm.title = '{{ $title }}';
             vm.rubric = '{{ $rubric }}';
             vm.image = '{{ $image }}';
-            vm.tags = '{{ $tags }}';
+            vm.tags = '{!! $tags !!}';
             vm.published = parseInt({{ $published }});
         });
     </script>@endsection

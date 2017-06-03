@@ -12,7 +12,6 @@
 @endsection
 
 @section("vue")
-    <script type="text/javascript" src="/front/user/VueUserMessages.js"></script>
     <script type="text/javascript" src="/front/admin/VueHomepage.js"></script>
     <script type="text/javascript">
         Vue.nextTick(function (){
@@ -27,9 +26,6 @@
             $(".button-collapse").sideNav();
             //инит диалога из левой панели
             $('#message_window').modal();
-
-            //инит диалога из верхней панели
-            $('#dialog_window').modal();
         });
     </script>
 @endsection
@@ -195,13 +191,6 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-button waves-effect" href="#!" data-activates="music">
-                            <i class="material-icons">library_music</i>
-                            Альбом
-                            <i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                    </li>
-                    <li>
                         <a class="dropdown-button waves-effect" href="#!" data-activates="events">
                             <i class="material-icons">event</i>
                             События
@@ -221,6 +210,21 @@
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-button waves-effect" href="#!" data-activates="albums">
+                            <i class="material-icons">library_music</i>
+                            Альбом
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                <li>
+                    <a class="dropdown-button waves-effect" href="{{ route('admin.rubric.index') }} ">
+                        <i class="material-icons">format_list_numbered</i>
+                         Рубрики
+
+                    </a>
+                </li>
+
                 @elseif (Auth::user()->role == 4)
                     <li>
                         <a class="dropdown-button waves-effect" href="#!" data-activates="posts">
@@ -267,7 +271,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-button waves-effect" href="#!" data-activates="music">
+                        <a class="dropdown-button waves-effect" href="#!" data-activates="albums">
                             <i class="material-icons">library_music</i>
                             Альбом
                             <i class="material-icons right">arrow_drop_down</i>
@@ -300,7 +304,7 @@
                 <div class="dialog-field">
                     <div class="row">
                         <div class="col s12">
-                            <p>A bunch of text</p>
+
                         </div>
                     </div>
                 </div>
@@ -321,7 +325,7 @@
                 </a>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close black-text"><i class="material-icons right dp48">clear</i></a>
+                <a href="#!" class="modal-action modal-close __close-btn black-text"><i class="material-icons right dp48">clear</i></a>
             </div>
         </div>
 

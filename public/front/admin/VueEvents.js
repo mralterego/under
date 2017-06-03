@@ -35,6 +35,7 @@ var vm = new Vue({
                 })
                 .done(function(data) {
                     console.log(data.response);
+                    self.successAction("Событие создано!");
                 })
                 .fail(function(error) {
                     console.log(error);
@@ -42,6 +43,9 @@ var vm = new Vue({
         },
         clear: function(){
             editor.setData("");
+        },
+        successAction: function(message){
+            Materialize.toast(message, 4000);
         },
         dateBuilder:function(id){
             var date = document.getElementById(id).value;
@@ -73,6 +77,7 @@ var vm = new Vue({
                         console.log(data.response);
                         self.poster = data.response;
                         self.showPoster = true;
+                        self.successAction("Загружено!");
                     },
                     error: function(error){
                         console.log(error);

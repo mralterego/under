@@ -55,17 +55,21 @@ var wrapperVm = new Vue({
     data: {
         message: "",
         activeMessages: [],
+        users: [],
         authors: {
             name: "",
             count: 0,
             messages: [],
         },
+        senders: {},
+        selectedGetter: "",
         showSenders: false,
-        senders: {
+        showGetterName: false,
+        showScroll: false,
 
-        },
     },
     created: function(){
+        this.getUsers();
         this.$on('message', function(msg){
             var authors = [];
             console.log(this.authors);
@@ -120,7 +124,8 @@ var wrapperVm = new Vue({
         openMessages: function(id, author){
             var uri = '/messages/read';
             this.activeMessages = this.authors[id].messages;
-
+            this.selectedGetter = author;
+            this.showGetterName = true;
             $.post(uri, {
                     author: author
                 }
@@ -134,8 +139,61 @@ var wrapperVm = new Vue({
                     console.log(error);
                 });
         },
-        sendMessage: function(){
+        successAction: function(message){
+            Materialize.toast(message, 4000);
+        },
+        checkHeight: function(classname){
+            var field = document.querySelectorAll(classname)[0];
+            var height = field.offsetHeight;
+            return height;
+        },
+        getUsers: function(){
+            var uri = "/user/users",
+                self = this;
 
+            $.get(uri)
+                .done(function(data){
+                    console.log(data.response);
+                    self.users =  data.response;
+                    var height = self.checkHeight(".__usersfield");
+                    if (height >  298){
+                        self.showScroll = true;
+                    }
+
+                })
+                .fail(function(error) {
+                    console.log(error);
+                });
+        },
+        selectGetter: function(name){
+            var self = this;
+            self.selectedGetter = name;
+            self.showGetterName = true;
+            document.querySelectorAll(".__dialog-field .materialize-textarea")[0].focus();
+
+        },
+        sendMessage: function(){
+            var self = this,
+                uri = "/messages/create",
+                author = document.getElementById("username").innerText;
+                $.post(uri, {
+                    author: author,
+                    getter: self.selectedGetter,
+                    content: self.message,
+                })
+                .done(function(data){
+                    console.log(data.response);
+                    self.message = "";
+                    document.querySelectorAll(".__dialog-field label")[0].className = "";
+                    self.successAction("Успешно отправлено!");
+                })
+                .fail(function(error) {
+                    console.log(error);
+                });
+
+        },
+        closeModal: function(){
+            $('#dialog_window').modal('close');
         }
     }
 });

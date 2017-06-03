@@ -35,10 +35,14 @@ var vm = new Vue({
                 })
                 .done(function(data) {
                     console.log(data.response);
+                    self.successAction("Сохранено!");
                 })
                 .fail(function(error) {
                     console.log(error);
                 });
+        },
+        successAction: function(message){
+            Materialize.toast(message, 4000);
         },
         uploadImage: function(event){
             var self = this,
