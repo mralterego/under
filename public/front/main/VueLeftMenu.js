@@ -68,7 +68,7 @@ var vm = new Vue({
                 });
 
         },
-        
+
         successAction: function(message){
             Materialize.toast(message, 4000);
         },

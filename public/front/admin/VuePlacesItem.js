@@ -11,6 +11,7 @@ var vm = new Vue({
         coordinates: "",
         description: "",
         tags: "",
+        icon: "",
         image: "",
         gallery: "",
         deputy: "",
@@ -18,6 +19,9 @@ var vm = new Vue({
         published: false,
         showPoster: true,
         showModal: false,
+    },
+    created: function(){
+
     },
     methods: {
         update: function(){
@@ -34,7 +38,7 @@ var vm = new Vue({
                     worktime: self.worktime,
                     coordinates: self.coordinates,
                     description: self.description,
-                    tags: self.tags,
+                    tags: JSON.stringify(self.tags),
                     image: self.image,
                     gallery: self.gallery,
                     deputy: self.deputy,
@@ -42,6 +46,7 @@ var vm = new Vue({
                 })
                 .done(function(data) {
                     console.log(data.response);
+                    self.successAction("Обновлено!");
                 })
                 .fail(function(error) {
                     console.log(error);
@@ -73,6 +78,9 @@ var vm = new Vue({
                 });
             }
         },
+        successAction: function(message){
+            Materialize.toast(message, 4000);
+        },
         uploadGallery: function(event) {
             var self = this,
                 uri = '/admin/gallery/upload';
@@ -94,6 +102,53 @@ var vm = new Vue({
                     error: function(error){
                         console.log(error);
                     }
+                });
+            }
+        },
+        uploadIcon: function(event){
+            var self = this,
+                uri = '/admin/places/icon';
+
+            var formdata = new FormData();
+            formdata.append("image", event.target.files[0]);
+
+            if (event.target.files.length > 0){
+                $.ajax({
+                    url: uri,
+                    data: formdata,
+                    type: "POST",
+                    dataType: "json",
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        self.icon = data.response;
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            }
+        },
+        removeTag: function(){
+            var self = this;
+            $('.chips').on('chip.delete', function(e, chip){
+                self.tags = self.countTags(".chip");
+            });
+        },
+        countTags: function(classname){
+            var result = [],
+                tags = document.querySelectorAll(classname);
+            for (var i = 0; i < tags.length; i ++){
+                result.push(tags[i].childNodes[0].data);
+            }
+            return result;
+        },
+        addTag: function(event){
+            var self = this;
+            if (event.keyCode == 13){
+                $('.chips').on('chip.add', function(e, chip){
+                    self.tags = self.countTags(".chip");
                 });
             }
         }

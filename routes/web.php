@@ -69,6 +69,8 @@ Route::group(['prefix' => '/admin'], function(){
 
     Route::get('/places/update', ['as' => 'admin.places.update', 'uses' => 'Admin\PlacesController@update']);
 
+    Route::post('/places/icon', ['as' => 'admin.places.icon', 'uses' => 'Admin\PlacesController@uploadIcon']);
+
     Route::post('/places/upload', ['as' => 'admin.places.upload', 'uses' => 'Admin\PlacesController@upload']);
 
 

@@ -218,7 +218,7 @@
                         </a>
                     </li>
                 <li>
-                    <a class="dropdown-button waves-effect" href="{{ route('admin.rubric.index') }} ">
+                    <a href="{{ route('admin.rubric.index') }} ">
                         <i class="material-icons">format_list_numbered</i>
                          Рубрики
 

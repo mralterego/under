@@ -20,7 +20,7 @@ var vm = new Vue({
 
     },
     updated: function(){
-        $('#select-hidden').material_select();
+
     },
     beforeCreate: function(){
         var self = this,

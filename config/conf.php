@@ -11,5 +11,6 @@ return [
         'avatars' => '/images/avatars/',
         'albums' => '/images/albums/',
         'audio' => '/audio/albums/',
+        'markers' => '/audio/markers/',
     ],
 ];

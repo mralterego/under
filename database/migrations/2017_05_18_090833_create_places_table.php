@@ -34,6 +34,8 @@ class CreatePlacesTable extends Migration
             $table->text('worktime')->nullable();
 
             //содержание
+            $table->string('icon')->nullable();
+            //содержание
             $table->text('coordinates')->nullable();
 
             //ссылка на полное мероприятие

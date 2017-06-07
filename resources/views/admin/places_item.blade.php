@@ -13,23 +13,45 @@
 
 @section("vue")
     <script type="text/javascript" src="/front/admin/VuePlacesItem.js"></script>
+    <script>
+        $('.chips').material_chip();
+        $('.chips-placeholder').material_chip({
+            secondaryPlaceholder: '+Тэг',
+        });
+    </script>
     <script type="text/javascript">
         Vue.nextTick(function (){
             vm.id = '{{ $id }}';
             vm.title = '{{ $title }}';
             vm.alias = '{{ $alias }}';
             vm.site = '{{ $site }}';
+            vm.icon = '{{ $icon }}';
             vm.address = '{{ $address }}';
             vm.worktime =  ' {{ $worktime }}' ;
             vm.coordinates = '{{ $coordinates }}';
             vm.description = '{{ $description }}';
-            vm.tags = '{{ $tags }}';
+            var tags = '{!! $tags !!}';
+            vm.tags = JSON.parse(tags);
+            console.log(vm.tags);
             vm.image = '{{ $image }}';
             vm.gallery = '{{ $gallery }}';
             vm.deputy = '{{ $deputy }}';
             vm.published = parseInt({{ $published }});
+
+            var data = [];
+            vm.tags.forEach(function(item, i){
+                var chip = {
+                    tag: item,
+                };
+                data.push(chip);
+            });
+
+            $('.chips').material_chip({
+                data: data,
+            });
         });
     </script>
+
 @endsection
 
 @section("view")
@@ -79,8 +101,7 @@
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s12">
-                                            <input type="text" v-model="tags">
-                                            <label class="active">Тэги</label>
+                                            <div v-on:keydown="addTag($event)" v-on:click="removeTag" class="chips chips-placeholder"></div>
                                         </div>
                                     </div>
                                     <div class="input-group">
@@ -98,37 +119,52 @@
 
             <div class="col s12">
                 <div class="card lime lighten-5 __margin-top_xl __margin-bottom_xl __padding-bottom_s">
+
                     <div class="row">
                         <div class="col s12">
                             <div class="row">
-                                <div class="card-content black-text">
-                                    <div class="input-group">
-                                        <div class="file-field input-field col s6">
-                                            <div class="btn">
-                                                <span>Загрузить постер</span>
-                                                <input type="file" name="image"  accept="image/*"  >
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text" v-bind:value="image">
-                                            </div>
-                                        </div>
+                                <div class="card-content black-text center __margin-bottom_xl ">
+                                    <span class="card-title ">&nbsp;&nbsp;&nbsp;Загрузите заглавное изображение вашего места</span>
+                                </div>
+                                <div class="input-group" >
+                                    <div class="file-field input-field col s6">
+                                        <img v-if="showPoster" class="responsive-img" v-bind:src="image">
                                     </div>
-                                    <div class="input-group" >
-                                        <div class="file-field input-field col s6">
-                                            <img class="responsive-img" v-bind:src="image">
-                                        </div>
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="file-field input-field col s6">
-                                            <div class="btn">
-                                                <span>Загрузить галлерею</span>
-                                                <input type="file" name="images[]"  accept="image/*"  v-on:change="uploadGallery($event)" multiple>
-                                            </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn right __margin-right_xl">
+                                            <i class="material-icons right dp48 ">file_download</i>
+                                            <span>Загрузить изображение</span>
+                                            <input type="file" name="image"  accept="image/*"  v-on:change="uploadImage($event)">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="card-content black-text center  __margin-bottom_xl">
+                                    <span class="card-title ">&nbsp;&nbsp;&nbsp;&nbsp;Установите свою иконку для маркера в Google Maps</span>
+                                </div>
+                                <div class="input-group" >
+                                    <div class="file-field input-field col s6">
+                                        <img class="right"  v-bind:src="icon">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn right __margin-right_l">
+                                            <i class="material-icons right dp48">file_download</i>
+                                            <span>Загрузить иконку</span>
+                                            <input type="file" name="image"  accept="image/*"  v-on:change="uploadIcon($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

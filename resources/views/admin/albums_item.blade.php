@@ -13,6 +13,12 @@
 
 @section("vue")
     <script type="text/javascript" src="/front/admin/VueAlbumsItem.js"></script>
+    <script>
+        $('.chips').material_chip();
+        $('.chips-placeholder').material_chip({
+            secondaryPlaceholder: '+Тэг',
+        });
+    </script>
     <script type="text/javascript">
         Vue.nextTick(function () {
             vm.id = '{{ $id }}';

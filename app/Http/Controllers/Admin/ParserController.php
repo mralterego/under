@@ -43,8 +43,14 @@ class ParserController extends Controller
 
         if (!empty($events)){
             foreach ($events as $k => $event){
-                # если дата с будущем и нет таких записей заголовокоа прежде
-                if ($event['date'] > $today AND !in_array($event['title'], $titles)){
+                # если дата в будущем и нет таких записей заголовокоа прежде
+                if ($event['date'] >= $today AND !in_array($event['title'], $titles)){
+                    $publish = true;
+                    if (!isset($event['image']) AND !isset($event['link'])){
+                        $event['image'] = "";
+                        $event['link'] = "";
+                        $publish = false;
+                    }
                     # формируем событие и сохраняем
                     $item = [
                         'title' => $event['title'],
@@ -56,7 +62,7 @@ class ParserController extends Controller
                         'place' => $event['place'],
                         'date' => $event['date'],
                         'tags' => $event['tags'],
-                        'published' => true
+                        'published' => $publish
                     ];
                     Event::create($item);
                 }

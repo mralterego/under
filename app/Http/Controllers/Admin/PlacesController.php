@@ -35,6 +35,7 @@ class PlacesController extends Controller
             "description" => "filled|required",
             "worktime" => "filled",
             "deputy" => "filled",
+            "icon" => "icon",
             "tags" => "filled",
             "image" => "filled",
             "gallery" => "filled",
@@ -47,10 +48,11 @@ class PlacesController extends Controller
         $site = $request -> input('site');
         $address = $request -> input('address');
         $coordinates = $request -> input('coordinates');
-        $description= $request -> input('description');
+        $description = $request -> input('description');
         $worktime = $request -> input('worktime');
         $deputy = $request -> input('deputy');
         $image = $request -> input('image');
+        $icon = $request -> input('icon');
         $gallery = $request -> input('gallery');
         $tags = $request->input('tags');
         $published = $request -> input('published') === "true" ? true : false;
@@ -68,8 +70,9 @@ class PlacesController extends Controller
                 'description' => $description,
                 'worktime' => $worktime,
                 'image' => $image,
+                'icon' => $icon,
                 'gallery' => $gallery,
-                'tags' => json_encode(explode(",", $tags)),
+                'tags' => $tags,
                 'rating' => json_encode($rating),
                 'published' => $published
             ];
@@ -101,8 +104,9 @@ class PlacesController extends Controller
         $deputy = $place_params[0]['deputy'];
         $gallery = $place_params[0]['gallery'];
         $worktime = $place_params[0]['worktime'];
+        $icon = $place_params[0]['icon'];
         $coordinates = $place_params[0]['coordinates'];
-        $tags = implode(',', $place_params[0]['tags']);
+        $tags = $place_params[0]['tags'];
         $published = $place_params[0]['published'];
 
         $description = str_replace("\n", "<br/>", $place_params[0]['description']);
@@ -125,6 +129,7 @@ class PlacesController extends Controller
                 'deputy' => $deputy,
                 'gallery' => $gallery,
                 'worktime' => $worktime,
+                'icon' => $icon,
                 'tags' => $tags,
                 'description' => $description,
                 'coordinates' => $coordinates,
@@ -148,8 +153,10 @@ class PlacesController extends Controller
         $worktime = $request -> input('worktime');
         $deputy = $request -> input('deputy');
         $image = $request -> input('image');
+        $icon = $request -> input('icon');
         $gallery = $request -> input('gallery');
         $tags = $request->input('tags');
+
         $published = $request -> input('published') === "true" ? true : false;
         $rating = [];
 
@@ -164,8 +171,9 @@ class PlacesController extends Controller
             'description' => $description,
             'worktime' => $worktime,
             'image' => $image,
+            'icon' => $icon,
             'gallery' => $gallery,
-            'tags' => json_encode(explode(",", $tags)),
+            'tags' => $tags,
             'rating' => json_encode($rating),
             'published' => $published
         ]);
@@ -216,6 +224,31 @@ class PlacesController extends Controller
             ]);
         }
     }
+
+
+    /**
+     *  Загрузка иконки для маркера
+     */
+    public function uploadIcon(Request $request)
+    {
+        if (Input::file()){
+            $extension = $request->image->extension();
+            $destinationPath = public_path().config('conf.dirs.markers');
+            $name = rtrim(strtr(base64_encode($request->image->path()), '+/', '-_'), '=');
+            $img = time().'_'.$name.".".$extension;
+            $request->image->move($destinationPath, $img);
+
+            return response()->json([
+                "response" => config('conf.dirs.markers').$img
+            ]);
+
+        } else {
+            return response()->json([
+                "response" => "There is no input file"
+            ]);
+        }
+    }
+
 
 
 
