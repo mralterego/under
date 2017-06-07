@@ -26,18 +26,38 @@
 
 @section("vue")
     <script type="text/javascript" src="/front/admin/VuePostsItem.js"></script>
+    <script>
+        $('.chips').material_chip();
+        $('.chips-placeholder').material_chip({
+            secondaryPlaceholder: '+Тэг',
+        });
+    </script>
     <script type="text/javascript">
         Vue.nextTick(function (){
             vm.id = '{{ $id }}';
             vm.title = '{{ $title }}';
             vm.rubric = '{{ $rubric }}';
             vm.image = '{{ $image }}';
-            vm.tags = '{!! $tags !!}';
+            var tags = '{!! $tags !!}';
+            vm.tags = JSON.parse(tags);
             vm.published = parseInt({{ $published }});
+            var data = [];
+            vm.tags.forEach(function(item, i){
+                var chip = {
+                    tag: item,
+                };
+                data.push(chip);
+            });
+            $('.chips').material_chip({
+                data: data,
+            });
         });
-    </script>@endsection
+
+    </script>
+@endsection
 
 @section("view")
+
     <div id="posts_page_item" class="container">
         <h4 class="center __margin-top_xxl">Пост id{{  $id }}</h4>
         <div class="row">
@@ -61,8 +81,7 @@
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s12">
-                                            <input type="text" v-model="tags">
-                                            <label class="active">Тэги через запятую</label>
+                                            <div v-on:keydown="addTag($event)" v-on:click="removeTag" class="chips chips-placeholder"></div>
                                         </div>
                                     </div>
 
@@ -111,6 +130,29 @@
                                     <div class="input-group" v-if="showPoster">
                                         <div class="file-field input-field col s6">
                                             <img class="responsive-img" v-bind:src="image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="card-content black-text">
+                                    <div class="input-group">
+                                        <div class="file-field input-field col s6">
+                                            <div class="btn">
+                                                <span>Загрузить галерею</span>
+                                                <input type="file" name="images[]"  accept="image/*"  v-on:change="uploadGallery($event)" multiple>
+                                            </div>
+                                            <div class="file-path-wrapper">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-group" v-if="showPoster">
+                                        <div class="file-field input-field col s6">
+
                                         </div>
                                     </div>
                                 </div>

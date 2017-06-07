@@ -129,12 +129,13 @@ Route::group(['prefix' => '/admin'], function(){
     Route::post('/rubric/create', ['as' => 'admin.rubric.create', 'uses' => 'Admin\RubricController@create']);
 
     Route::post('/rubric/remove', ['as' => 'admin.rubric.remove', 'uses' => 'Admin\RubricController@remove']);
-    /**
-     * !!!!todo:Сделать множественную загрузку !!!!
-     **/
-    Route::post('/gallery/upload', ['as' => 'admin.gallery.upload', 'uses' => 'Main\MainController@galleryUpload']);
 
 });
+
+Route::post('/post/gallery/upload/{id}', ['as' => 'post.gallery.upload', 'uses' => 'Admin\PostsController@galleryUpload']) -> where('id', '[0-9]+');
+
+Route::post('/place/gallery/upload/{id}', ['as' => 'place.gallery.upload', 'uses' => 'Admin\PlacesController@galleryUpload']) -> where('id', '[0-9]+');
+
 
 
 Auth::routes();
@@ -154,7 +155,17 @@ Route::group(['prefix' => '/user'], function(){
     Route::post('/avatars/update', ['as' => 'user.avatars.update', 'uses' => 'User\UsersController@updateImage']);
 
     Route::post('/avatars/upload', ['as' => 'user.avatars.upload', 'uses' => 'User\UsersController@upload']);
+
+    Route::post('/rating', ['as' => 'user.rating', 'uses' => 'User\UsersController@rating']);
 });
+
+
+Route::group(['prefix' => '/rating'], function(){
+
+    Route::get('/post',  [ 'as' => 'user.users', 'uses' => 'Admin\PostsController@getRate']);
+
+});
+
 
 Route::group(['prefix' => '/messages'], function(){
 

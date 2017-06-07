@@ -20,6 +20,23 @@ body nav .button-collapse{
     margin: 0px;
 
 }
+.__rate_icons{
+    font-size: 40px;
+    cursor: pointer;
+}
+.__rate_icons i {
+    font-size: 100%;
+}
+.__rate_links{
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}
+
+.head_block{
+    max-height: 300px;
+    overflow: hidden;
+}
 .audio_file{
     background-color: white;
     width: 100%;

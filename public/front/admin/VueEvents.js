@@ -57,6 +57,28 @@ var vm = new Vue({
                 return date;
             }
         },
+        removeTag: function(){
+            var self = this;
+            $('.chips').on('chip.delete', function(e, chip){
+                self.tags = self.countTags(".chip");
+            });
+        },
+        countTags: function(classname){
+            var result = [],
+                tags = document.querySelectorAll(classname);
+            for (var i = 0; i < tags.length; i ++){
+                result.push(tags[i].childNodes[0].data);
+            }
+            return result;
+        },
+        addTag: function(event){
+            var self = this;
+            if (event.keyCode == 13){
+                $('.chips').on('chip.add', function(e, chip){
+                    self.tags = self.countTags(".chip");
+                });
+            }
+        },
         uploadImage: function(event){
             var self = this,
                 uri = '/admin/events/upload';

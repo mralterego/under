@@ -24,6 +24,7 @@
                     <tr>
                         <th><h6>ID</h6></th>
                         <th><h6>Название</h6></th>
+                        <th><h6>Рубрики</h6></th>
                         <th><h6>Тэги</h6></th>
                         <th><h6>Опубликован</h6></th>
                     </tr>
@@ -33,6 +34,7 @@
                         <tr class="hovered-row"  :id="key + '_' + item.id">
                             <td><a :href="'/admin/posts/' + item.id" target="_blank">id@{{ item.id }}</a></td>
                             <td class="__width_850">@{{item.title}}</td>
+                            <td>@{{ item.rubric }}</td>
                             <td>@{{ item.tags }}</td>
                             <td>@{{ item.published }}</td>
                         </tr>

@@ -37,25 +37,12 @@ class MainController extends Controller
 
     public function rubricItem($rubric, $id)
     {
-        return $rubric . $id;
-    }
+        $post = Post::where('rubric', $rubric)->where('id', $id)->where('published', true)->get()->toArray();
 
-
-    public function galleryUpload(Request $request)
-    {
-        $files = Input::file();
-        $arr_urls = [];
-
-        foreach ($files as $file){
-            $ext = $file->getClientOriginalExtension();
-            $name = $file->getClientOriginalName();
-        }
-
-        return response()->json([
-            "response" => $files
+        return view('pages.post', [
+            'post' => $post[0]
         ]);
     }
-
 
 
 }

@@ -35,7 +35,7 @@ class PlacesController extends Controller
             "description" => "filled|required",
             "worktime" => "filled",
             "deputy" => "filled",
-            "icon" => "icon",
+            "icon" => "nullable",
             "tags" => "filled",
             "image" => "filled",
             "gallery" => "filled",
@@ -114,6 +114,8 @@ class PlacesController extends Controller
         if ($published == NULL) {
             $published = false;
         }
+
+
         # преобразуем true/false в 1/0
         $intPublished = (int)($published);
 
@@ -223,6 +225,24 @@ class PlacesController extends Controller
                 "response" => "There is no input file"
             ]);
         }
+    }
+
+
+    public function galleryUpload(Request $request)
+    {
+        $out = "";
+
+        $files = Input::file();
+        $arr_urls = [];
+
+        // foreach ($files as $file){
+        //$ext = $file->getClientOriginalExtension();
+        //  $name = $file->getClientOriginalName();
+        //}
+
+        return response()->json([
+            "response" => $files
+        ]);
     }
 
 

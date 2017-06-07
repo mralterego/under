@@ -110,7 +110,7 @@ class EventsController extends Controller
                 'place' => $place,
                 'price' => $price,
                 'image' => $image,
-                'tags' => json_encode(explode(",", $tags)),
+                'tags' => $tags,
                 'published' => $publish,
                 'content' => $content,
             ]
@@ -139,7 +139,7 @@ class EventsController extends Controller
         $image = $event_params[0]['image'];
         $place = $event_params[0]['place'];
         $price = $event_params[0]['price'];
-        $tags = implode(',', $event_params[0]['tags']);
+        $tags = $event_params[0]['tags'];
         $date = date_format(date_create($event_params[0]['date']), 'd.m.Y');
         $published = $event_params[0]['published'];
 
@@ -149,6 +149,10 @@ class EventsController extends Controller
         # в колонке custom, которая должна быть BOOLEAN, по какой-то непонятной хранится также и NULL, поэтому делаем NULL в false
         if ($published == NULL) {
             $published = false;
+        }
+
+        if (is_array($tags)){
+            $tags = json_encode($tags);
         }
 
         # преобразуем true/false в 1/0

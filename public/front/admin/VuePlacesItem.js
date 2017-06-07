@@ -81,32 +81,6 @@ var vm = new Vue({
         successAction: function(message){
             Materialize.toast(message, 4000);
         },
-        uploadGallery: function(event) {
-            var self = this,
-                uri = '/admin/gallery/upload';
-            var formdata = new FormData();
-            console.log(event.target.files);
-            for (var i = 0; i < event.target.files.length; i++){
-                formdata.append("images[]", event.target.files[i]);
-            }
-            console.log(formdata);
-            if (event.target.files.length > 0){
-                $.ajax({
-                    url: uri,
-                    data: formdata,
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                        console.log(data);
-                    },
-                    error: function(error){
-                        console.log(error);
-                    }
-                });
-            }
-        },
         uploadIcon: function(event){
             var self = this,
                 uri = '/admin/places/icon';
@@ -125,6 +99,33 @@ var vm = new Vue({
                     contentType: false,
                     success: function(data) {
                         self.icon = data.response;
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            }
+        },
+
+        uploadGallery: function(event) {
+            var self = this,
+                uri = '/place/gallery/upload/' + self.id;
+            var formdata = new FormData();
+
+            for (var i = 0; i < event.target.files.length; i++){
+                formdata.append("images[]", event.target.files[i]);
+            }
+
+            if (event.target.files.length > 0){
+                $.ajax({
+                    url: uri,
+                    data: formdata,
+                    type: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
                     },
                     error: function(error){
                         console.log(error);

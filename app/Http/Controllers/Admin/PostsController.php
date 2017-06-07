@@ -52,9 +52,9 @@ class PostsController extends Controller
         if ($published == NULL) {
             $published = false;
         }
-
-        # преобразуем true/false в 1/0
-        $intPublished = (int)($published);
+        if (is_array($tags)){
+            $tags = json_encode($tags);
+        }
 
         # выводим
         return view('admin.posts_item',
@@ -66,7 +66,7 @@ class PostsController extends Controller
                 'content' => $content,
                 'image' => $image,
                 'tags' => $tags,
-                'published' => $intPublished,
+                'published' => $published,
             ]
         );
     }
@@ -150,7 +150,7 @@ class PostsController extends Controller
 
         $alias = trim(substr(CMS::rus2translit($title), 0, 100));
 
-        $published = $request -> input('published') === '1' ? true : false;
+        $published = $request -> input('published') === 'true' ? true : false;
 
         $content = $request -> input('content');
         $content = str_replace("\n", "", $content);
@@ -175,6 +175,23 @@ class PostsController extends Controller
         # если сохранение успешно output = true, иначе false
         return response()->json([
             "response" => $out
+        ]);
+    }
+
+    public function getRate(Request $request)
+    {
+        $id = $request -> input('postId');
+        $rating = Post::where('id', (int)($id))->pluck('rating');
+        $actualRate = 0;
+
+        if (!empty($rating[0])){
+            foreach($rating[0] as $key => $r){
+                $actualRate = $actualRate + (int)($r['rate']);
+            }
+            $actualRate = $actualRate / count($rating[0]);
+        }
+        return response()->json([
+            "response" => $actualRate
         ]);
     }
 
@@ -211,6 +228,24 @@ class PostsController extends Controller
                 "response" => "There is no input file"
             ]);
         }
+    }
+
+
+    public function galleryUpload($id, Request $request)
+    {
+        $out = "";
+
+        $files = Input::file();
+        $arr_urls = [];
+
+        // foreach ($files as $file){
+        //$ext = $file->getClientOriginalExtension();
+        //  $name = $file->getClientOriginalName();
+        //}
+
+        return response()->json([
+            "response" => $id
+        ]);
     }
 
 }

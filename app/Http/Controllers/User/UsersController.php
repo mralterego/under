@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use App\Models\User;
 use App\Models\Message;
+use App\Models\Post;
 
 class UsersController extends Controller
 {
@@ -64,6 +65,7 @@ class UsersController extends Controller
             "response" => $out
         ]);
     }
+
     /**
      *  Загрузка изображения
      */
@@ -85,6 +87,72 @@ class UsersController extends Controller
                 "response" => "There is no input file"
             ]);
         }
+    }
+
+    public function rating(Request $request)
+    {
+        $name = Auth::user()->name;
+        $rate = $request->input('rate');
+        $postId = $request->input('postId');
+        $rates = Post::where('id', $postId)->pluck('rating');
+        $actualRate = 0;
+
+        if (!empty($rates[0])){
+            $marks = [];
+            $finded = false;
+            foreach($rates[0] as $key => $r){
+                if ($r['author'] == $name){
+                    $r['rate'] =  $rate;
+                    array_push($marks, [
+                        "author" => $r['author'],
+                        "rate" => $r['rate'],
+                    ]);
+                    $finded = true;
+                    $actualRate = $actualRate + (int)($r['rate']);
+
+                } else {
+                    array_push($marks, [
+                        "author" => $r['author'],
+                        "rate" => $r['rate'],
+                    ]);
+                    $actualRate = $actualRate + (int)($r['rate']);
+                }
+            }
+            if (!$finded){
+                array_push($marks, [
+                    "author" => $name,
+                    "rate" => $rate,
+                ]);
+                $actualRate = $actualRate + (int)($rate);
+            }
+            $actualRate = $actualRate / count($marks);
+            $rating = json_encode($marks);
+
+            Post::where('id', (int)($postId))-> update([
+                "rating" =>  $rating
+            ]);
+
+        } else {
+            $marks = [];
+
+            array_push($marks, [
+                "author" => $name,
+                "rate" => $rate
+            ]);
+
+            $rating = json_encode($marks);
+
+            $actualRate = (int)($rate);
+
+            Post::where('id', (int)($postId))-> update([
+                "rating" =>  $rating
+            ]);
+        }
+
+        return response()->json([
+            "response" => $actualRate
+        ]);
+
     }
 
 }

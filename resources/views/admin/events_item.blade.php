@@ -26,6 +26,12 @@
 
 @section("vue")
     <script type="text/javascript" src="/front/admin/VueEventsItem.js"></script>
+    <script>
+        $('.chips').material_chip();
+        $('.chips-placeholder').material_chip({
+            secondaryPlaceholder: '+Тэг',
+        });
+    </script>
     <script type="text/javascript">
         Vue.nextTick(function (){
             vm.id = '{{ $id }}';
@@ -33,9 +39,20 @@
             vm.place = '{{ $place }}';
             vm.price = '{{ $price }}';
             vm.poster= '{{ $image }}';
-            vm.tags = '{{ $tags }}';
+            var tags = '{!! $tags !!}';
             vm.link = '{{ $link }}';
             vm.published = parseInt({{ $published }});
+            var data = [];
+            vm.tags = JSON.parse(tags);
+            vm.tags.forEach(function(item, i){
+                var chip = {
+                    tag: item,
+                };
+                data.push(chip);
+            });
+            $('.chips').material_chip({
+                data: data,
+            });
         });
     </script>
 @endsection
@@ -81,8 +98,7 @@
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s12">
-                                            <input type="text" v-model="tags">
-                                            <label class="active">Тэги, через запятую</label>
+                                            <div v-on:keydown="addTag($event)" v-on:click="removeTag" class="chips chips-placeholder"></div>
                                         </div>
                                     </div>
                                 </div>

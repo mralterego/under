@@ -22,6 +22,15 @@
 
 @section("vue")
     <script type="text/javascript" src="/front/admin/VuePosts.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+        $('.chips').material_chip();
+        $('.chips-placeholder').material_chip({
+            secondaryPlaceholder: '+Тэг',
+        });
+    </script>
 @endsection
 
 @section("view")
@@ -46,16 +55,13 @@
                                                 <option value="" disabled selected>Выберите рубрику</option>
                                                 <option v-for="item in rubrics" :value="item.alias">@{{ item.name }}</option>
                                             </select>
-
                                         </div>
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s12">
-                                            <input type="text" v-model="tags">
-                                            <label class="active">Тэги через запятую</label>
+                                            <div v-on:keydown="addTag($event)" v-on:click="removeTag" class="chips chips-placeholder"></div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

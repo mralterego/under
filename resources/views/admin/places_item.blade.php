@@ -32,7 +32,7 @@
             vm.description = '{{ $description }}';
             var tags = '{!! $tags !!}';
             vm.tags = JSON.parse(tags);
-            console.log(vm.tags);
+
             vm.image = '{{ $image }}';
             vm.gallery = '{{ $gallery }}';
             vm.deputy = '{{ $deputy }}';

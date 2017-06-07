@@ -30,13 +30,14 @@ var vm = new Vue({
                     link: self.link,
                     price: self.price,
                     image: self.poster,
-                    tags: self.tags,
+                    tags: JSON.stringify(self.tags),
                     date: date,
                     content: content,
                     published: self.published
                 })
                 .done(function(data) {
                     console.log(data.response);
+                    self.successAction("Обновлено!");
                 })
                 .fail(function(error) {
                     console.log(error);
@@ -44,6 +45,31 @@ var vm = new Vue({
         },
         clear: function(){
             editor.setData("");
+        },
+        removeTag: function(){
+            var self = this;
+            $('.chips').on('chip.delete', function(e, chip){
+                self.tags = self.countTags(".chip");
+            });
+        },
+        countTags: function(classname){
+            var result = [],
+                tags = document.querySelectorAll(classname);
+            for (var i = 0; i < tags.length; i ++){
+                result.push(tags[i].childNodes[0].data);
+            }
+            return result;
+        },
+        addTag: function(event){
+            var self = this;
+            if (event.keyCode == 13){
+                $('.chips').on('chip.add', function(e, chip){
+                    self.tags = self.countTags(".chip");
+                });
+            }
+        },
+        successAction: function(message){
+            Materialize.toast(message, 4000);
         },
         dateBuilder:function(id){
             var date = document.getElementById(id).value;

@@ -20,7 +20,7 @@
 @section("view")
     <div id="main_page" class="container">
         <div class="row">
-            <div class="col s7">
+            <div class="col s6">
                 <h3 class="center __margin-top_l">Что-где происходит</h3>
                 <div class="row">
                     @if (count($events) > 0)
@@ -60,9 +60,31 @@
                     @endif
                 </div>
             </div>
+
             <div class="col s3">
+                @if (count($posts) > 0)
+                    <div class="row">
+                        @foreach ($posts as $post)
+                            <div class="col s12">
+                                <div class="card">
+                                    <div class="card-image">
+                                        @if ($post['image'] != "")
+                                            <img src="{{ $post['image'] }}">
+                                        @endif
+                                        <span class="card-title">{!! $post['title'] !!}</span>
+                                    </div>
+                                    @if ($post['rubric'] != "")
+                                        <div class="card-action">
+                                            <a href="/rubric/{{$post['rubric']}}/{{$post['id']}}">ссылка</a>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
-            <div class="col s2">
+            <div class="col s3">
             </div>
         </div>
     </div>

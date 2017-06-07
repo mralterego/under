@@ -26,6 +26,7 @@ var vm = new Vue({
                 self.gallery = parseInt(self.gallery);
             }
             console.log(self.gallery);
+            console.log(self.tags);
             $.post(uri,
                 {
                     id: self.id,
@@ -88,6 +89,54 @@ var vm = new Vue({
                     }
                 });
             }
-        }
+        },
+        uploadGallery: function(event) {
+            var self = this,
+                uri = '/post/gallery/upload/' + self.id;
+            var formdata = new FormData();
+
+            for (var i = 0; i < event.target.files.length; i++){
+                formdata.append("images[]", event.target.files[i]);
+            }
+
+            if (event.target.files.length > 0){
+                $.ajax({
+                    url: uri,
+                    data: formdata,
+                    type: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            }
+        },
+        removeTag: function(){
+            var self = this;
+            $('.chips').on('chip.delete', function(e, chip){
+                self.tags = self.countTags(".chip");
+            });
+        },
+        countTags: function(classname){
+            var result = [],
+                tags = document.querySelectorAll(classname);
+            for (var i = 0; i < tags.length; i ++){
+                result.push(tags[i].childNodes[0].data);
+            }
+            return result;
+        },
+        addTag: function(event){
+            var self = this;
+            if (event.keyCode == 13){
+                $('.chips').on('chip.add', function(e, chip){
+                    self.tags = self.countTags(".chip");
+                });
+            }
+        },
     }
 });
