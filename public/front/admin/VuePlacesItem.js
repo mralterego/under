@@ -78,18 +78,20 @@ var vm = new Vue({
                 uri = '/admin/gallery/upload';
             var formdata = new FormData();
             console.log(event.target.files);
-            formdata.append("images[]", event.target.files);
+            for (var i = 0; i < event.target.files.length; i++){
+                formdata.append("images[]", event.target.files[i]);
+            }
+            console.log(formdata);
             if (event.target.files.length > 0){
                 $.ajax({
                     url: uri,
                     data: formdata,
                     type: "POST",
-                    dataType: "json",
                     cache: false,
-                    processData: false,
                     contentType: false,
+                    processData: false,
                     success: function(data) {
-                        console.log(data.response);
+                        console.log(data);
                     },
                     error: function(error){
                         console.log(error);

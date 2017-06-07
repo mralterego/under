@@ -130,7 +130,7 @@ Route::group(['prefix' => '/admin'], function(){
     /**
      * !!!!todo:Сделать множественную загрузку !!!!
      **/
-    Route::post('/gallery/upload', ['as' => 'admin.places.upload', 'uses' => 'Admin\MainController@galleryUpload']);
+    Route::post('/gallery/upload', ['as' => 'admin.gallery.upload', 'uses' => 'Main\MainController@galleryUpload']);
 
 });
 
