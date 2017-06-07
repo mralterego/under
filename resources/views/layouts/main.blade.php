@@ -21,8 +21,9 @@
         <a href="#" class="brand-logo">Logo</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             @if (Auth::guest())
-                <li><a href="{{ route('login') }}">Войти</a></li>
                 <li><a href="{{ route('register') }}">Зарегистрироваться</a></li>
+                <li><a href="{{ route('login') }}">Войти</a></li>
+                <li class="__menu_icon"><a href="/login/vk"><img src="/images/icons/vk-128.png" class="responsive-img"></a></li>
             @else
                 <li>Вы вошли как: <span id="username">{{ Auth::user()->name }}</span> </li>
                 @include('include._top_menu')

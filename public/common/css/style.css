@@ -61,6 +61,17 @@ p.__message {
 .__menu_messages a{
     height: 64px;
 }
+.__menu_icon{
+    height: 64px;
+    padding-top: 4px;
+    color: white;
+    max-width: 84px;
+}
+
+.__menu_icon a:hover{
+    background-color: transparent;
+}
+
 .__menu_messages a i {
     display: inline-block;
 }
@@ -143,17 +154,21 @@ body nav .__menu_item > a {
 }
 .modal-win{
     position: absolute;
-    left: 12.5%;
+    left: 5%;
     z-index: 110;
-    top: 10%;
+    top: 5%;
     opacity: 1;
     background-color: white;
-    width: 75%;
+    width: 90%;
     height: 810px;
     border: 1px solid #b4b2ab;
     border-radius: 3px;
     padding: 45px 0px 20px 0px;
     transition: 1.2s ease;
+}
+.__event_block{
+    max-height: 400px;
+    overflow: hidden;
 }
 
 #message_window .modal-footer a {
@@ -200,6 +215,13 @@ body nav .__menu_item > a {
 }
 .modal-close span{
     font-size: 25px;
+}
+
+.__modal-close {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .rubric-block{

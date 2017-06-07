@@ -6,7 +6,7 @@
 @section("head")
     <style>
         #map {
-            height: 500px;
+            height: 600px;
         }
     </style>
 
@@ -20,6 +20,12 @@
 
 @section("vue")
     <script type="text/javascript" src="/front/admin/VuePlaces.js"></script>
+    <script>
+        $('.chips').material_chip();
+        $('.chips-placeholder').material_chip({
+            secondaryPlaceholder: '+Тэг',
+        });
+    </script>
 @endsection
 
 @section("view")
@@ -71,8 +77,7 @@
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s12">
-                                            <input type="text" v-model="tags">
-                                            <label class="active">Тэги через запятую</label>
+                                            <div v-on:keydown="addTag($event)" v-on:click="removeTag" class="chips chips-placeholder"></div>
                                         </div>
                                     </div>
                                     <div class="input-group">
@@ -83,28 +88,49 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s12">
                             <div class="row">
-                                <div class="card-content black-text">
-                                    <div class="input-group">
-                                        <div class="file-field input-field col s6">
-                                            <div class="btn">
-                                                <span>Загрузить изображение</span>
-                                                <input type="file" name="image"  accept="image/*"  v-on:change="uploadImage($event)">
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text" v-bind:value="image">
-                                            </div>
+                                <div class="card-content black-text center __margin-bottom_xl ">
+                                    <span class="card-title ">&nbsp;&nbsp;&nbsp;Загрузите заглавное изображение вашего места</span>
+                                </div>
+                                <div class="input-group" >
+                                    <div class="file-field input-field col s6">
+                                        <img v-if="showPoster" class="responsive-img" v-bind:src="image">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn right __margin-right_xl">
+                                            <i class="material-icons right dp48 ">file_download</i>
+                                            <span>Загрузить изображение</span>
+                                            <input type="file" name="image"  accept="image/*"  v-on:change="uploadImage($event)">
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                    <div class="input-group" v-if="showPoster">
-                                        <div class="file-field input-field col s6">
-                                            <img class="responsive-img" v-bind:src="image">
+                    <div class="row">
+                        <div class="col s12">
+                             <div class="row">
+                                <div class="card-content black-text center  __margin-bottom_xl">
+                                    <span class="card-title ">&nbsp;&nbsp;&nbsp;&nbsp;Установите свою иконку для маркера в Google Maps</span>
+                                </div>
+                                <div class="input-group" >
+                                    <div class="file-field input-field col s6">
+                                        <img class="right"  v-bind:src="icon">
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn right __margin-right_l">
+                                            <i class="material-icons right dp48">file_download</i>
+                                            <span>Загрузить иконку</span>
+                                            <input type="file" name="image"  accept="image/*"  v-on:change="uploadIcon($event)">
                                         </div>
                                     </div>
                                 </div>
@@ -119,9 +145,8 @@
                             </div>
                         </div>
                         <div class="col s6">
-
                             <div class="__padding-right_l ">
-                                <a class="right waves-effect waves-light btn-large  " v-on:click="create">
+                                <a class="right waves-effect waves-light btn-large" v-on:click="create">
                                     &nbsp;&nbsp;Создать
                                     <i class="material-icons right dp48">note_add</i>
                                 </a>
@@ -136,8 +161,8 @@
     <div class="overlay " v-bind:class="{ __hidden : !showModal }">
     </div>
     <div class="modal-win" v-bind:class="{ __hidden : !showModal }">
-        <div class="modal-close" v-on:click="showModal = !showModal">
-            <span>X</span>
+        <div class="__modal-close" v-on:click="showModal = !showModal">
+            <i class="material-icons dp48">clear</i>
         </div>
         <div id="map"></div>
     </div>

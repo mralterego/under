@@ -13,6 +13,12 @@
 
 @section("vue")
     <script type="text/javascript" src="/front/admin/VueAlbum.js"></script>
+    <script>
+        $('.chips').material_chip();
+        $('.chips-placeholder').material_chip({
+            secondaryPlaceholder: '+Тэг',
+        });
+    </script>
 
 @endsection
 
@@ -34,8 +40,7 @@
                                     </div>
                                     <div class="input-group">
                                         <div class="input-field col s12">
-                                            <input type="text" v-model="tags">
-                                            <label class="active">Тэги через запятую</label>
+                                            <div v-on:keydown="addTag($event)" v-on:click="removeTag" class="chips chips-placeholder"></div>
                                         </div>
                                     </div>
                                     <div class="input-group">

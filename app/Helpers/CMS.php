@@ -186,8 +186,11 @@ class CMS
         foreach($html->find($title_path) as $key => $title){
             $split = explode('@',  $title->plaintext);
             $result[$key]['title'] = trim($split[0]);
-            $result[$key]['place'] = trim($split[1]);
-
+            if (isset($split[1])){
+                $result[$key]['place'] = trim($split[1]);
+            } else {
+                $result[$key]['place'] = "";
+            }
         }
         foreach($html->find($date_path) as $key => $date){
 
@@ -280,7 +283,6 @@ class CMS
         }
 
         $result = array_merge($res, []);
-
         return $result;
 
     }

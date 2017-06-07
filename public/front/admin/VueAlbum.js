@@ -6,7 +6,7 @@ var vm = new Vue({
         description: "",
         poster: "",
         audio: [],
-        tags: "",
+        tags: [],
         published: false,
         showAudio:  false,
         showPoster: false
@@ -29,6 +29,7 @@ var vm = new Vue({
                 })
                 .done(function(data) {
                     console.log(data.response);
+                    self.successAction("Альбом добавлен!");
                 })
                 .fail(function(error) {
                     console.log(error);
@@ -37,7 +38,6 @@ var vm = new Vue({
         uploadAudio: function(event){
             var self = this,
                 uri = '/admin/albums/audio';
-                console.log(event.target.files[0]);
                 var formdata = new FormData();
                 formdata.append("audio", event.target.files[0]);
                 if (event.target.files.length > 0){
@@ -50,23 +50,24 @@ var vm = new Vue({
                         processData: false,
                         contentType: false,
                         success: function(data) {
-                            console.log(data.response);
                             var name = data.response.name;
                             var path = data.response.path;
                             var audio = {
                                 name: name,
                                 path: path,
                             };
-
                             self.audio.push(audio);
-
                             self.showAudio = true;
+                            self.successAction("Трек загружен");
                         },
                         error: function(error){
                             console.log(error);
                         }
                     });
                 }
+        },
+        successAction: function(message){
+            Materialize.toast(message, 4000);
         },
         uploadImage: function(event){
             var self = this,
@@ -84,13 +85,34 @@ var vm = new Vue({
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        console.log(data.response);
                         self.poster = data.response;
                         self.showPoster = true;
                     },
                     error: function(error){
                         console.log(error);
                     }
+                });
+            }
+        },
+        removeTag: function(){
+            var self = this;
+            $('.chips').on('chip.delete', function(e, chip){
+                self.tags = self.countTags(".chip");
+            });
+        },
+        countTags: function(classname){
+            var result = [],
+                tags = document.querySelectorAll(classname);
+            for (var i = 0; i < tags.length; i ++){
+                result.push(tags[i].childNodes[0].data);
+            }
+            return result;
+        },
+        addTag: function(event){
+            var self = this;
+            if (event.keyCode == 13){
+                $('.chips').on('chip.add', function(e, chip){
+                    self.tags = self.countTags(".chip");
                 });
             }
         }
