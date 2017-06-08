@@ -32,7 +32,7 @@
             </ul>
         </div>
     </nav>
-
+    @include('include._left_menu')
     @include('include._function_menu')
 
     <div class="wrapper">

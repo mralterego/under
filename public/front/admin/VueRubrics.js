@@ -39,6 +39,8 @@ var vm = new Vue({
                     console.log(data.response);
                     self.getRubrics();
                     self.showTable = true;
+                    self.name = "";
+                    self.alias = "";
                 })
                 .fail(function(error) {
 

@@ -21,6 +21,8 @@
 @endsection
 
 @section("vue")
+    <script type="text/javascript" src="/front/main/VueLeftMenu.js"></script>
+    <script type="text/javascript" src="/common/js/initLeftDialog.js"></script>
     <script type="text/javascript" src="/front/admin/VueEvents.js"></script>
 @endsection
 
