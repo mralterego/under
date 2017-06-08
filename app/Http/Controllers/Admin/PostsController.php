@@ -185,6 +185,10 @@ class PostsController extends Controller
         $rating = Post::where('id', (int)($id))->pluck('rating');
         $actualRate = 0;
 
+        if (!is_array($rating[0])){
+            $rating[0] = json_decode($rating[0], true);
+        }
+
         if (!empty($rating[0])){
             foreach($rating[0] as $key => $r){
                 $actualRate = $actualRate + (int)($r['rate']);

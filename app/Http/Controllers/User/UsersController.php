@@ -97,6 +97,10 @@ class UsersController extends Controller
         $rates = Post::where('id', $postId)->pluck('rating');
         $actualRate = 0;
 
+        if (!is_array($rates[0])){
+            $rates[0] = json_decode($rates[0], true);
+        }
+
         if (!empty($rates[0])){
             $marks = [];
             $finded = false;
