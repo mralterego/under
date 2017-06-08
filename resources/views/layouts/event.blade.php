@@ -37,13 +37,13 @@
 
 <div class="wrapper">
     <div class="container">
-        @yield('view')
+    @yield('view')
 
-        <!--rate functionality-->
-        @if (Auth::user())
-            @include('include._rate_field')
-        @endif
-        <!--rate functionality-->
+    <!--rate functionality-->
+    @if (Auth::user())
+        @include('include._rate_field')
+    @endif
+    <!--rate functionality-->
     </div>
 
     @include('include._left_menu')

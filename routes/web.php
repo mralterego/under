@@ -162,7 +162,7 @@ Route::group(['prefix' => '/user'], function(){
 
 Route::group(['prefix' => '/rating'], function(){
 
-    Route::get('/post',  [ 'as' => 'user.users', 'uses' => 'Admin\PostsController@getRate']);
+    Route::get('/post',  [ 'as' => 'rating.post', 'uses' => 'Admin\PostsController@getRate']);
 
 });
 
@@ -180,7 +180,7 @@ Route::group(['prefix' => '/posts'], function(){
 
     Route::get('/',  [ 'as' => 'posts.index', 'uses' => 'Main\MainController@posts']);
 
-    Route::get('/{rubric}/{id}',  [ 'uses' => 'Main\MainController@rubricItem']);
+    Route::get('/{rubric}/{id}',  [ 'uses' => 'Main\MainController@rubricItem']) -> where('id', '[0-9]+');
 
 });
 
@@ -190,6 +190,8 @@ Route::group(['prefix' => '/events'], function(){
 
     Route::get('/',  [ 'as' => 'events.index', 'uses' => 'Main\MainController@events']);
 
+    Route::get('/{id}',  [ 'uses' => 'Main\MainController@eventItem']) -> where('id', '[0-9]+');
+
 });
 
 
@@ -197,11 +199,15 @@ Route::group(['prefix' => '/places'], function(){
 
     Route::get('/',  [ 'as' => 'places.index', 'uses' => 'Main\MainController@places']);
 
+    Route::get('/{id}',  [ 'uses' => 'Main\MainController@placeItem']) -> where('id', '[0-9]+');
+
 });
 
 
 Route::group(['prefix' => '/collectives'], function(){
 
     Route::get('/',  [ 'as' => 'collectives.index', 'uses' => 'Main\MainController@collectives']);
+
+    Route::get('/{id}',  [ 'uses' => 'Main\MainController@collectiveItem']) -> where('id', '[0-9]+');
 
 });

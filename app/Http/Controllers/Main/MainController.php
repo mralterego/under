@@ -72,6 +72,16 @@ class MainController extends Controller
         ]);
     }
 
+    public function eventItem($id)
+    {
+        $event = Event::where('id', $id)->where('published', true)->get()->toArray();
+
+        return view('pages.event_item', [
+            'event' => $event[0]
+        ]);
+    }
+
+
     public function places()
     {
         $places = Place::where('published', true)->get()->toArray();
@@ -81,12 +91,32 @@ class MainController extends Controller
         ]);
     }
 
+    public function placeItem($id)
+    {
+        $place = Place::where('id', $id)->get()->toArray();
+
+        return view('pages.place_item', [
+            'place' => $place[0]
+        ]);
+    }
+
     public function collectives()
     {
         $collectives = Collective::get()->toArray();
 
         return view('pages.collectives', [
             "collectives" => $collectives
+        ]);
+    }
+
+
+    public function collectiveItem($id)
+    {
+
+        $collective = Collective::where('id', $id)->get()->toArray();
+
+        return view('pages.collective_item', [
+            'collective' => $collective[0]
         ]);
     }
 

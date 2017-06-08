@@ -54,3 +54,4 @@
 @yield('foot')
 <!--foot user assets-->
 </body>
+</html>
