@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Place;
 use App\Models\Event;
+use App\Models\Collective;
 use Carbon\Carbon;
 
 class MainController extends Controller
@@ -33,16 +34,60 @@ class MainController extends Controller
         ]);
 
     }
+    public function posts()
+    {
+        $posts= Post::where('published', true)->orderBy('created_at', 'DESK')->get()->toArray();
+
+        return view('pages.posts', [
+            "posts" => $posts
+        ]);
+    }
+
 
 
     public function rubricItem($rubric, $id)
     {
         $post = Post::where('rubric', $rubric)->where('id', $id)->where('published', true)->get()->toArray();
 
-        return view('pages.post', [
+        return view('pages.post_item', [
             'post' => $post[0]
         ]);
     }
 
+
+    public function events()
+    {
+        $today = Carbon::today();
+
+        $events = Event::where('date', '>=', $today)->where('published', true)->get()->toArray();;
+
+        foreach($events as $key => $event)
+        {
+            $dateFormatted =  Carbon::parse($event['date'])->format('d.m.Y');
+            $events[$key]['date_formatted'] = $dateFormatted;
+        }
+
+        return view('pages.events', [
+            "events" => $events
+        ]);
+    }
+
+    public function places()
+    {
+        $places = Place::where('published', true)->get()->toArray();
+
+        return view('pages.places', [
+            "places" => $places
+        ]);
+    }
+
+    public function collectives()
+    {
+        $collectives = Collective::get()->toArray();
+
+        return view('pages.collectives', [
+            "collectives" => $collectives
+        ]);
+    }
 
 }

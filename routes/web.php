@@ -175,8 +175,33 @@ Route::group(['prefix' => '/messages'], function(){
 
 });
 
-Route::group(['prefix' => '/rubric'], function(){
+
+Route::group(['prefix' => '/posts'], function(){
+
+    Route::get('/',  [ 'as' => 'posts.index', 'uses' => 'Main\MainController@posts']);
 
     Route::get('/{rubric}/{id}',  [ 'uses' => 'Main\MainController@rubricItem']);
+
+});
+
+
+
+Route::group(['prefix' => '/events'], function(){
+
+    Route::get('/',  [ 'as' => 'events.index', 'uses' => 'Main\MainController@events']);
+
+});
+
+
+Route::group(['prefix' => '/places'], function(){
+
+    Route::get('/',  [ 'as' => 'places.index', 'uses' => 'Main\MainController@places']);
+
+});
+
+
+Route::group(['prefix' => '/collectives'], function(){
+
+    Route::get('/',  [ 'as' => 'collectives.index', 'uses' => 'Main\MainController@collectives']);
 
 });

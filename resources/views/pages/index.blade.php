@@ -75,7 +75,7 @@
                                     </div>
                                     @if ($post['rubric'] != "")
                                         <div class="card-action">
-                                            <a href="/rubric/{{$post['rubric']}}/{{$post['id']}}">ссылка</a>
+                                            <a href="/posts/{{$post['rubric']}}/{{$post['id']}}">ссылка</a>
                                         </div>
                                     @endif
                                 </div>

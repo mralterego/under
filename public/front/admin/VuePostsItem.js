@@ -108,7 +108,7 @@ var vm = new Vue({
                     contentType: false,
                     processData: false,
                     success: function(data) {
-                        console.log(data);
+                        console.log(data.response);
                     },
                     error: function(error){
                         console.log(error);

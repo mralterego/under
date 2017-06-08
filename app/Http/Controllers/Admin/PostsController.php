@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\Gallery;
 use Carbon\Carbon;
 
 
@@ -233,18 +234,28 @@ class PostsController extends Controller
 
     public function galleryUpload($id, Request $request)
     {
-        $out = "";
 
-        $files = Input::file();
         $arr_urls = [];
+        $files = Input::file('images');
+        $destinationPath = public_path().config('conf.dirs.gallery_post').$id."/";
+        CMS::createDir($destinationPath);
 
-        // foreach ($files as $file){
-        //$ext = $file->getClientOriginalExtension();
-        //  $name = $file->getClientOriginalName();
-        //}
+        foreach ($files as $key => $file){
+            $ext = $file->getClientOriginalExtension();
+            $name = rtrim(strtr(base64_encode($file->getClientOriginalName()), '+/', '-_'), '=');
+            $img = time().'_'.$name.".".$ext;
+            $file->move($destinationPath, $img);
+            $arr_urls['src'][$key] = config('conf.dirs.gallery_post').$id."/".$img;
+        }
+        $gallery_item = [
+            "info" => json_encode($arr_urls),
+            "fromPost" => $id,
+            "fromPlace" => 0
+        ];
+        Gallery::create($gallery_item);
 
         return response()->json([
-            "response" => $id
+            "response" => $arr_urls
         ]);
     }
 

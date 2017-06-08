@@ -227,21 +227,30 @@ class PlacesController extends Controller
         }
     }
 
-
-    public function galleryUpload(Request $request)
+    public function galleryUpload($id, Request $request)
     {
-        $out = "";
 
-        $files = Input::file();
         $arr_urls = [];
+        $files = Input::file('images');
+        $destinationPath = public_path().config('conf.dirs.gallery_place').$id."/";
+        CMS::createDir($destinationPath);
 
-        // foreach ($files as $file){
-        //$ext = $file->getClientOriginalExtension();
-        //  $name = $file->getClientOriginalName();
-        //}
+        foreach ($files as $key => $file){
+            $ext = $file->getClientOriginalExtension();
+            $name = rtrim(strtr(base64_encode($file->getClientOriginalName()), '+/', '-_'), '=');
+            $img = time().'_'.$name.".".$ext;
+            $file->move($destinationPath, $img);
+            $arr_urls['src'][$key] = config('conf.dirs.gallery_pplace').$id."/".$img;
+        }
+        $gallery_item = [
+            "info" => json_encode($arr_urls),
+            "fromPost" => 0,
+            "fromPlace" => $id,
+        ];
+        Gallery::create($gallery_item);
 
         return response()->json([
-            "response" => $files
+            "response" => $arr_urls
         ]);
     }
 

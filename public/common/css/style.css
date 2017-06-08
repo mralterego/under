@@ -184,7 +184,6 @@ body nav .__menu_item > a {
     transition: 1.2s ease;
 }
 .__event_block{
-    max-height: 400px;
     overflow: hidden;
 }
 
